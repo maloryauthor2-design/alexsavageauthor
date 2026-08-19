@@ -204,6 +204,10 @@ She didn't stop talking. I caught fragments \u2014 a rude bloke on the second fl
     ]
   });
   add({
+    id: "d_hall_look",
+    location: "Corridor",
+    art: "/art/trudie-hall.jpg",
+    portrait: "/art/trudie.jpg",
     speaker: "jack",
     text: `"Ooh, bed hair!" she said over her shoulder. "Very rugged. I'd tell you not to worry because nobody important's going to see you, but I'm going to see you, and I'm extremely important!"
 
