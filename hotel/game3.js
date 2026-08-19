@@ -159,7 +159,7 @@ I have never heard this voice before in my life. The handle rattles.`,
   add({
     id: "d2_open",
     location: "Diamond 2 \u2014 Consequence",
-    art: "/art/corridor.jpg",
+    art: "/art/trudie-cover.jpg",
     portrait: "/art/trudie.jpg",
     speaker: "trudie",
     text: `"Ooh, bed hair! Very rugged. I'd tell you not to worry because nobody important's going to see you, but I'm going to see you, and I'm extremely important."
@@ -221,7 +221,7 @@ The carpet is fizzing. Not metaphorically. Small bright bubbles along the east s
   add({
     id: "d3",
     location: "Diamond 3 \u2014 The Lobby Spill",
-    art: "/art/lobby.jpg",
+    art: "/art/trudie-cover.jpg",
     portrait: "/art/trudie.jpg",
     speaker: "trudie",
     time: "morning",
@@ -255,7 +255,7 @@ A rag hits my chest. Tacky fingers. A smile that would get a man in trouble in a
   add({
     id: "d3_mop",
     location: "Diamond 3 \u2014 Consequence",
-    art: "/art/lobby.jpg",
+    art: "/art/trudie-cover.jpg",
     portrait: "/art/trudie.jpg",
     speaker: "trudie",
     text: `A compliment about her work lands harder than one about her ass. She goes a shameless rose color and the edges of her go vague, as if her outline is the first thing she stops bothering with when she's pleased.
@@ -276,7 +276,7 @@ I have a cheat sheet starting for a woman who meets me fresh every morning.`,
   add({
     id: "d3_watch",
     location: "Diamond 3 \u2014 Consequence",
-    art: "/art/lobby.jpg",
+    art: "/art/trudie-cover.jpg",
     portrait: "/art/trudie.jpg",
     speaker: "trudie",
     text: `"Suit yourself." She does not look up. The rag goes in tight circles. She is very good at this and very used to doing it alone.
@@ -289,7 +289,7 @@ The seal goes down. The fizz sulks. She sits back on her heels and blows a stran
   add({
     id: "d3_chaos",
     location: "Diamond 3 \u2014 Consequence",
-    art: "/art/lobby.jpg",
+    art: "/art/trudie-cover.jpg",
     portrait: "/art/trudie.jpg",
     speaker: "trudie",
     text: `I pull. She is heavier than a woman her size has any right to be, and then she is lighter, like water changing its mind.
@@ -552,7 +552,7 @@ I get back before the fourth. My mouth tastes of coins.`,
   add({
     id: "d5_leave",
     location: "Diamond 5 \u2014 Consequence",
-    art: "/art/lobby.jpg",
+    art: "/art/trudie-cover.jpg",
     portrait: "/art/trudie.jpg",
     speaker: "trudie",
     text: `"Good boy." She says it like a joke and like it isn't. "Ione will silk it if it gets any ruder. You go find a kettle. Or a life. I'm not fussy."
@@ -563,7 +563,7 @@ The hole stays. The cold stays. I have chosen not to be useful, and the building
   add({
     id: "d5_out",
     location: "Diamond 5 \u2014 Outcome",
-    art: "/art/lobby.jpg",
+    art: "/art/brig-cover.jpg",
     speaker: "jack",
     text: (s) => s.loop === 1 ? `The rest of the day happens to other people. Pans. Needles. A noon that wants me outdoors and doesn't get me.
 
