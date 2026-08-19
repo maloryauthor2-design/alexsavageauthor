@@ -6,7 +6,7 @@
     <title>Save State Innkeeper</title>
     <meta
       name="description"
-      content="A time-loop choose-your-own-adventure in the Hotel Sans Nuit."
+      content="Die, wake, learn the rule. A literary time-loop adventure."
     />
     <link rel="icon" href="./favicon.svg" />
     <style>
@@ -130,7 +130,7 @@
       <img class="bg" src="./art/trudie-hall.jpg" alt="" onerror="this.onerror=null;this.src='./art/lobby.jpg'" />
       <div class="veil"></div>
       <div class="copy">
-        <p class="kicker">The Brassbank · Hotel Sans Nuit</p>
+        <p class="kicker">Check in</p>
         <h1>Save State<br />Innkeeper</h1>
         <p class="lede">
           You wake in a bed that isn’t yours, with a work order in your fist. Fix what breaks. Then do it all again.
@@ -146,7 +146,7 @@
     <div id="play" class="screen hidden">
       <header class="bar">
         <div>
-          <p class="tiny">Hotel Sans Nuit</p>
+          <p class="tiny">Save State</p>
           <p class="meta mono" id="meta"></p>
         </div>
         <div>
@@ -185,10 +185,10 @@
       </div>
     </div>
 
-    <script src="./game.js?v=app1"></script>
+    <script src="./game.js?v=spine1"></script>
     <script>
       const ART = ".";
-      const KEY = "sans-nuit-static-v3";
+      const KEY = "sans-nuit-static-v4";
       const NAMES = { jack: "Jack Causey", trudie: "Trudie Crisp", brig: "Brig", ione: "Ione", leland: "Leland Crum" };
       const $ = (id) => document.getElementById(id);
       const artUrl = (src) => {
