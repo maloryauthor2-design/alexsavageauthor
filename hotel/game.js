@@ -59,11 +59,6 @@ var Hotel = (() => {
     go("d_hall_look", "Watch her walk."),
     go("d_hall_stop", "Plant your feet. Ask where you're going.")
   ];
-  var spill = (extra = {}) => [
-    go("d3_mop", "Get on your knees and help", extra),
-    go("d3_watch", "Stand back. Let her finish.", extra),
-    go("d3_chaos", "Pull her off the carpet", extra)
-  ];
   var desk = (s, extra = {}) => s.loop >= 2 ? [
     go("d10b", "Talk to the postman", extra),
     go("d4_ledger", "Open the ledger anyway", extra),
@@ -110,7 +105,7 @@ She's going to say Jack. She's going to say late. She is not, as far as I can te
       const c = [];
       if (!s.flags.lookedRoom) c.push(go("d1_room", "That stain in the corner"));
       if (!s.flags.lookedSelf) c.push(go("d1_self", "Catch yourself in the mirror"));
-      c.push(go("d2", "Answer the door"));
+      c.push(go("d2", "There's someone at the door"));
       return c;
     }
   });
@@ -157,7 +152,7 @@ The lobby's already trying to do what now?`,
     location: "Corridor",
     art: "/art/trudie-door.jpg",
     portrait: "/art/trudie.jpg",
-    speaker: "trudie",
+    speaker: "jack",
     time: "morning",
     text: `I hurried over and yanked it open. Out in the corridor was a young woman in a, yeah, I'm going to say it, unnecessarily slutty maid outfit. I don't mind saying that I may well have gawped a little. Especially as she looked like she'd been designed by someone with excellent taste in trouble. Her name was Trudie Crisp, at least according to the crooked name tag perched on the left of an enormous pair of tits. Blue-green hair, all the piercings in the world, a filthy grin.
 
@@ -170,11 +165,11 @@ Without waiting for me to say anything she reached out and grabbed my wrist with
     art: "/art/corridor.jpg",
     speaker: "jack",
     time: "morning",
-    text: `I put my ear to the paint, because I am a grown man and this is a reasonable way to start a Tuesday. She was talking to someone who wasn't there. Spore counts. The Stayover in the basement. A Rulekeeper on night shift, quote, rude.
+    text: `I put my ear to the paint, because I am a grown man and this is a reasonable way to start a Tuesday. She was talking to someone who wasn't there, or to the hotel, I couldn't tell which. Something about counts. Something in the basement. A bloke on night shift she thought was rude.
 
 Then, brightly, to the door: "I can hear you breathing, slowpoke." The handle turned anyway.
 
-Trudie Crisp. That's what the name tag said, perched on the left of an enormous pair of tits. Blue-green hair. Ripples through her like she wasn't entirely solid. She already had my wrist and she was already walking.`,
+And there she was. Young woman in an unnecessarily slutty maid outfit, name tag on the left of an enormous pair of tits that said Trudie Crisp, blue-green hair, and ripples running through her like she wasn't entirely solid. She already had my wrist and she was already walking.`,
     choices: () => hallAct().map((c) => ({ ...c, set: { heardBridie: true }, journal: 1 }))
   });
   add({
@@ -183,11 +178,11 @@ Trudie Crisp. That's what the name tag said, perched on the left of an enormous 
     art: "/art/courtyard.jpg",
     speaker: "jack",
     time: "morning",
-    text: `The sash stuck, then gave, the way a sash does when nobody's planed three millimeters off the bottom in forty years. Courtyard. Wet stone. A fountain dry as a lie. I got four steps.
+    text: `The sash stuck, then gave, the way a sash does when nobody's planed three millimeters off the bottom in about forty years. I dropped into a courtyard that smelled of wet stone and something sweeter, like fruit left too long. The fountain in the middle was dry as a lie. I got four steps toward what I hoped was a front door.
 
 "JACK CAUSEY you complete menace!"
 
-She'd poured out after me. Same maid outfit. Same name tag. Same tacky hand, now on a wet wrist. She started hauling me toward the front door like this was a perfectly normal way to start a Tuesday.`,
+She'd poured out after me. Young woman, unnecessarily slutty maid outfit, blue-green hair, all the piercings in the world, a filthy grin, and a crooked name tag on the left of an enormous pair of tits that said Trudie Crisp. Slightly see-through. Slightly tacky. She grabbed my wet wrist and started hauling me toward the front door like this was a perfectly normal way to start a Tuesday.`,
     choices: () => hallAct().map((c) => ({ ...c, set: { arrivedWet: true }, journal: 1 }))
   });
   add({
@@ -195,14 +190,12 @@ She'd poured out after me. Same maid outfit. Same name tag. Same tacky hand, now
     location: "Corridor",
     art: "/art/trudie-hall.jpg",
     portrait: "/art/trudie.jpg",
-    speaker: "trudie",
-    text: `I let her pull me. Partly because I was still trying to figure out what the hell was going on, and partly because her grip on my arm was one of the nicer sensations I'd experienced recently.
+    speaker: "jack",
+    text: (s) => `I let her pull me${s.flags.arrivedWet ? ", dripping, in through the front like a bad decision" : ""}. Partly because I was still trying to figure out what the hell was going on, and partly because her grip on my arm was one of the nicer sensations I'd experienced recently.
 
 "Come on, slowpoke! Brig is already growling about breakfast and the Rulekeeper's been circling the second floor for the last hour. Up and at them!"
 
-She didn't stop talking. Night shift, rude. East wing, dramatic. Ione patching three new tears in the second floor and drinking something that might have been silk tea. Spore counts. The Stayover acting up in the basement. Register names in reception flickering.
-
-It all sounded very involved and I had absolutely no idea what any of it meant.`,
+She didn't stop talking. I caught fragments \u2014 a rude bloke on the second floor, a woman named Ione patching tears and drinking silk tea, something called the Stayover in the basement \u2014 and I had absolutely no idea what any of it meant.`,
     choices: [
       go("d_lobby", "The lobby opened up", {
         journal: 1,
@@ -211,11 +204,7 @@ It all sounded very involved and I had absolutely no idea what any of it meant.`
     ]
   });
   add({
-    id: "d_hall_look",
-    location: "Corridor",
-    art: "/art/trudie-hall.jpg",
-    portrait: "/art/trudie.jpg",
-    speaker: "trudie",
+    speaker: "jack",
     text: `"Ooh, bed hair!" she said over her shoulder. "Very rugged. I'd tell you not to worry because nobody important's going to see you, but I'm going to see you, and I'm extremely important!"
 
 And Christ, what a view. Trudie's ass swayed ahead of me with every bouncy step, her minuscule maid skirt doing absolutely nothing. When she stopped at the corner, all that shifting and jiggling didn't stop when she did. It carried on for a half-second longer than it had any business carrying on, the way water keeps moving in a glass after you've set the glass down.
@@ -230,12 +219,12 @@ She was still talking. Rulekeeper. Ione. Stayover in the basement. I was not, at
     location: "Corridor",
     art: "/art/corridor.jpg",
     portrait: "/art/trudie.jpg",
-    speaker: "trudie",
-    text: `"Where are we going? Which hotel is this? Why do you know my name?"
+    speaker: "jack",
+    text: (s) => `"Where are we going? Which hotel is this? Why do you know my name?"
 
 She didn't slow down. "Kitchen first, slowpoke. Brig's going to spank your ass herself if you're late, and I want to watch. Rulekeeper's on the second floor, Ione's in a mood, Stayover's acting up in the basement. You know how it is."
 
-I did not know how it was. I knew the floral wallpaper and the damp smell and that my boots were still in 204.`,
+I did not know how it was. I knew the floral wallpaper and the damp smell${s.flags.arrivedWet ? ", and that I was leaving a wet trail across someone else's carpet" : ", and that my boots were still in 204"}.`,
     choices: [go("d_lobby", "The lobby opened up")]
   });
   add({
@@ -305,11 +294,15 @@ What the actual fucking fuckery fuck? Was I still asleep?`,
     speaker: "brig",
     text: (s) => (s.loop >= 2 ? `"Wards running hot, I reckon. Third fitting down, weeping into the line." Her ears went flat, the careful way. "You've not even looked at it, Causey." The toolkit popped into my hand. I saw it arrive this time.` : `Ancient cast iron. Flames flickering between honest orange and something sicky greeny-black. Smelled like burning herbs and rot. My hands went to work without asking me, which was either competence or the hotel wearing me like a glove.`) + `
 
-She shoved a bowl at me. The one without the chip. "Nearest bowl," she said, which I did not believe. Then a rag hit my chest and the lobby carpet was fizzing.`,
-    choices: () => spill({
-      journal: 1,
-      addRule: "The stove weeps at the third fitting. Wards run hot."
-    })
+She shoved a bowl at me without warning. The one without the chip. Warm, rich, a spice kick that almost cleared the hangover. "She saved you the good bowl," Trudie whispered. "It was the nearest bowl!" I ate. I didn't argue. "Funny," Brig said. "You say that every few days. Then you go back to fixing things like nothing happened."
+
+"Good enough. Get out of my kitchen and go earn your fucking salary."`,
+    choices: [
+      go("d3", "Out. The carpet she was sent to seal.", {
+        journal: 1,
+        addRule: "The stove weeps at the third fitting. Wards run hot."
+      })
+    ]
   });
   add({
     id: "d_brig_chop",
@@ -319,8 +312,10 @@ She shoved a bowl at me. The one without the chip. "Nearest bowl," she said, whi
     speaker: "brig",
     text: `"Chop chop. Uniformly. Uneven dice and I'm using your fingers for stock." I fix pipes. I do not dice onions for a woman with a tail. Trudie plucked the knife away with a wink. "What she actually wants is the stove."
 
-I did the stove. She did the bowl without the chip. A rag hit my chest on the way out. The lobby carpet was bubbling like mold in fast-forward.`,
-    choices: () => spill()
+I did the stove anyway. She shoved the unchipped bowl at me and I ate, because the stew smelled stupidly good and I looked like shit. "Funny. You say you don't know what you're doing here every few days. Then you go back to fixing things."
+
+"Good enough. Get out of my kitchen and go earn your fucking salary."`,
+    choices: [go("d3", "Out. The carpet she was sent to seal.")]
   });
   add({
     id: "d_brig_stare",
@@ -330,18 +325,46 @@ I did the stove. She did the bowl without the chip. A rag hit my chest on the wa
     speaker: "brig",
     text: `"I\u2026 just woke up?" Her ears flattened. "Woken up. Right. That's just perfect." Those ears. That tail. The teeth. The flames around her flared higher than physics allowed. This wasn't a costume.
 
-Trudie dragged me to the oven anyway. I ate. The unchipped bowl. Then the carpet, fizzing, and a rag.`,
-    choices: () => spill()
+Trudie dragged me to the oven anyway. I ate. The unchipped bowl. "You say that every few days," Brig said. "Then you go back to fixing things like nothing happened."
+
+"Good enough. Get out of my kitchen and go earn your fucking salary."`,
+    choices: [go("d3", "Out. The carpet she was sent to seal.")]
+  });
+  add({
+    id: "d3",
+    location: "Lobby",
+    art: "/art/trudie-mop.jpg",
+    portrait: "/art/trudie.jpg",
+    speaker: "jack",
+    time: "morning",
+    text: (s) => {
+      if (s.flags.mutSpillHelped && s.loop >= 2) {
+        return `I came back out into the lobby with the taste of stew still in my mouth. Trudie was already on her knees, delighted and faintly see-through. "You're early! I think it likes you today."
+
+The rag, again.`;
+      }
+      if (s.flags.mutSpillIgnored && s.loop >= 2) {
+        return `The carpet had a mouth today. She was already running. "Don't just stand there, Jack! I told you yesterday\u2026 wait, did I?"`;
+      }
+      return `I came back out into the lobby with the taste of stew still in my mouth. The carpet near the far wall was still bubbling, and Trudie was pointing at it with a rag like I might have forgotten.
+
+"If we don't get the seal down before ten, the boards go. They always go. What do you do, then? Don't say nothing. Nothing is how we got the last innkeeper."`;
+    },
+    choices: [
+      go("d3_mop", "Get on your knees and help"),
+      go("d3_watch", "Stand back. Let her finish."),
+      go("d3_chaos", "Pull her off the carpet")
+    ]
   });
   add({
     id: "d3_mop",
     location: "Lobby",
     art: "/art/trudie-mop.jpg",
     portrait: "/art/trudie.jpg",
-    speaker: "trudie",
-    text: `I got down. The fizz died under the cloth the way a valve dies when you finally seat it. A compliment about her work landed harder than one about her ass. She went a shameless rose color, and the edges of her went vague.
+    speaker: "jack",
+    text: `I got down. The fizz died under the cloth the way a valve dies when you finally seat it. I told her she was good at this \u2014 the work, I mean \u2014 and she went a shameless rose color, the edges of her going vague like she'd stopped bothering with an outline.
 
-The desk was empty. Brass plate: INNKEEPER. Vacant. The east boards coughed.`,
+The desk was empty. The plate said the innkeeper post was vacant, and I want you to pay attention to that word, because vacant is doing a lot of work.`,
     choices: (s) => desk(s, {
       set: { flagOrder: true, mutSpillHelped: true },
       trust: 1,
@@ -378,37 +401,21 @@ The desk was still vacant. The boards were not going to wait for me to feel clev
     location: "Front desk",
     art: "/art/ledger.jpg",
     speaker: "jack",
-    text: `CAUSEY, JACK. Room 204. A time that was not a time. Under it, fainter: CAUSEY, JACK. And again. That book is trying to check me in. I shut it.
+    text: `Yesterday's arrivals were written in a hand that kept changing its mind. CAUSEY, JACK. Room 204. Checked in at a time that was not a time. Under it, fainter, the same name again. I shut it before the page could add another one while I was watching.
 
-The boards had a hole in them the width of a dinner plate, or they were about to.`,
+The east boards were done pretending.`,
     choices: (s) => [
-      go("d10b", "The postman is waiting", {
+      go("d10b", "There's a man at the desk", {
         when: (st) => st.loop >= 2,
         set: { lookedLedger: true },
         journal: 1,
         addRule: "The ledger already has your name. Repeatedly."
       }),
-      go("d5_patch", "Patch the boards. That's the job.", {
+      go("d5", "The boards", {
         when: (st) => st.loop < 2,
         set: { lookedLedger: true },
         journal: 1,
         addRule: "The ledger already has your name. Repeatedly."
-      }),
-      go("d5_look", "Lie down and look through.", {
-        when: (st) => st.loop < 2,
-        set: { lookedLedger: true }
-      }),
-      go("d5_leave", "Leave the hole. She said don't go down.", {
-        when: (st) => st.loop < 2,
-        set: { lookedLedger: true }
-      }),
-      go("d5_patch", "Patch it before it gets worse", {
-        when: (st) => st.loop >= 2,
-        set: { lookedLedger: true }
-      }),
-      go("d5_look", "Look through anyway", {
-        when: (st) => st.loop >= 2,
-        set: { lookedLedger: true }
       })
     ]
   });
@@ -421,13 +428,11 @@ The boards had a hole in them the width of a dinner plate, or they were about to
 
 The east boards were done pretending.`,
     choices: [
-      go("d5_patch", "Patch them. That's the job.", {
+      go("d5", "The boards", {
         set: { lookedBell: true },
         journal: 1,
         addRule: "Don't ring the bell twice."
-      }),
-      go("d5_look", "Lie down. Just look.", { set: { lookedBell: true } }),
-      go("d5_leave", "Leave it. She said don't.", { set: { lookedBell: true } })
+      })
     ]
   });
   add({
@@ -453,12 +458,38 @@ The east boards were done pretending.`,
 
 "Causey. I'm not your address. I'm the four-thirty, and I'm early. Don't ask if you're mad. You're not. The hotel is."`,
     choices: [
-      go("d5_patch", "Tell him you remember dying. Then patch the floor.", {
-        set: { lelandMet: true },
-        journal: 1
-      }),
-      go("d5_look", "Ask if he's the manager. Then look down the hole.", { set: { lelandMet: true } }),
-      go("d5_leave", "Ask what the job is. Then leave the boards.", {
+      go("d10b_truth", "Tell him you remember dying"),
+      go("d10b_joke", "Ask if he's the manager"),
+      go("d10b_ask", "Ask him what the job actually is")
+    ]
+  });
+  add({
+    id: "d10b_truth",
+    location: "Front desk",
+    art: "/art/leland.jpg",
+    portrait: "/art/leland.jpg",
+    speaker: "leland",
+    text: `"Good. Write it down. The paper keeps what your head drops. I go in and out. That's why I keep the days. You stay. That's why you don't, unless you make yourself someone the building can't mislay."`,
+    choices: [go("d5", "The boards are going", { set: { lelandMet: true }, journal: 1 })]
+  });
+  add({
+    id: "d10b_joke",
+    location: "Front desk",
+    art: "/art/leland.jpg",
+    portrait: "/art/leland.jpg",
+    speaker: "leland",
+    text: `"Manager." He tasted the word and put it back. "If there was one, you wouldn't be holding that paper. Never been an advert out for a handyman either. I'm Leland. I bring what gets through."`,
+    choices: [go("d5", "The boards are going", { set: { lelandMet: true } })]
+  });
+  add({
+    id: "d10b_ask",
+    location: "Front desk",
+    art: "/art/leland.jpg",
+    portrait: "/art/leland.jpg",
+    speaker: "leland",
+    text: `"You already have the brief. Four staff. Four corners. No innkeeper. That's the hole you're standing in. Help the girl with the floor when she asks. The house likes that."`,
+    choices: [
+      go("d5", "The boards are going", {
         set: { lelandMet: true },
         journal: 1,
         addRule: "Four staff. Four nodes. The innkeeper post is the hole."
@@ -506,16 +537,10 @@ The hole stayed. The cold stayed. I had chosen not to be useful.`,
     art: "/art/corridor.jpg",
     speaker: "jack",
     time: "afternoon",
-    text: `I grabbed the tools \u2014 were they even my tools? \u2014 and headed out. The pastel hallways all looked the same, and the damp smell was getting much, much stronger.
+    text: `I grabbed the tools, which I reckon weren't even mine, though my hands knew them, and headed out. The pastel hallways all looked the same, and the damp smell was getting much, much stronger.
 
-I fixed a leaky pipe on pure muscle memory, then a flickering fixture on the second floor. Every one of these tasks felt familiar to my hands. My head kept screaming I'd never been here in my life. These women knew my name. I did not know theirs, not really.
-
-None of it made a jot of sense.`,
-    choices: [
-      go("d9", "Keep mapping the floor"),
-      go("d9", "Find a kettle. Or a life."),
-      go("d9", "Follow the damp smell")
-    ]
+I fixed a leaky pipe on pure muscle memory, then a flickering fixture on the second floor. Every one of these tasks felt familiar to my hands. My head kept screaming I'd never been here in my life.`,
+    choices: [go("d9", "Then the clock struck three")]
   });
   add({
     id: "d9",
@@ -542,9 +567,7 @@ I could follow it, like the colossal fucking idiot everyone always said I was. I
     tone: "death",
     text: `"Stay\u2026 with us\u2026"
 
-Something pale and wrong lunged. Far too many arms. A crying child's face.
-
-I died. Last thing in my mind was Trudie's filthy grin. Then black.`,
+I had time to think that was a child, and then I had time to think that it was not, and then I didn't have time for anything except Trudie's filthy grin, which is a stupid last thought and I stand by it.`,
     death: {
       cause: "The thing in the basement.",
       rule: "The basement is not on the schedule right now."
@@ -554,15 +577,17 @@ I died. Last thing in my mind was Trudie's filthy grin. Then black.`,
   add({
     id: "d9_away",
     location: "Service stairs",
-    art: "/art/rulekeeper.jpg",
+    art: "/art/stayover.jpg",
     speaker: "jack",
     tone: "death",
-    text: `I turned on my heel and walked the other way, because I can take an instruction off my own handwriting when it's offered. The unlit stairs were still there. I put my hand on the rail. A pen clicked.
+    text: `I turned on my heel and walked the other way, because following a child's voice into a basement is how men like me get a reputation.
 
-Fine. Now I knew.`,
+It followed me up. Silk on the steps. Too many arms. A crying face that was not, I reckon, asking nicely.
+
+Last thing in my mind was Trudie's grin. Then black.`,
     death: {
-      cause: "The stairs. In the dark.",
-      rule: "No stairs in the dark."
+      cause: "The thing in the basement.",
+      rule: "The basement is not on the schedule right now."
     },
     choices: []
   });
@@ -572,11 +597,9 @@ Fine. Now I knew.`,
     art: "/art/rulekeeper.jpg",
     speaker: "jack",
     tone: "death",
-    text: `First step. A pen click. A long coat. A clipboard. Distilled disappointment.
+    text: `I put my foot on the first step because it looked like an ordinary shortcut, and I have always been a fool for ordinary shortcuts.
 
-"Ah," I said. "The stairs. In the dark."
-
-I died. Quicker than the last one.`,
+Somewhere above me a pen clicked. I had time to think, ah, the stairs, in the dark, that's going to turn out to be a rule, and then I didn't have time for anything else.`,
     death: {
       cause: "The stairs. In the dark.",
       rule: "No stairs in the dark."
