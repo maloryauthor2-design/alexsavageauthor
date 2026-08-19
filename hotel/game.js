@@ -139,7 +139,8 @@ Without waiting for me to say anything she reached out and grabbed my wrist with
   add({
     id: "d2_listen",
     location: "Corridor",
-    art: "/art/corridor.jpg",
+    art: "/art/trudie-door.jpg",
+    portrait: "/art/trudie.jpg",
     speaker: "jack",
     time: "morning",
     text: `I put my ear to the paint, because I am a grown man and this is a reasonable way to start a Tuesday. She was talking to someone who wasn't there, or to the hotel, I couldn't tell which. Something about counts. Something in the basement. A bloke on night shift she thought was rude.
@@ -172,7 +173,7 @@ She'd poured out after me. Young woman, unnecessarily slutty maid outfit, blue-g
 
 "Come on, slowpoke! Brig is already growling about breakfast and the Rulekeeper's been circling the second floor for the last hour. Up and at them!"
 
-She didn't stop talking. I caught fragments \u2014 a rude bloke on the second floor, a woman named Ione patching tears and drinking silk tea, something called the Stayover in the basement \u2014 and I had absolutely no idea what any of it meant.`,
+She didn't stop talking. I caught fragments, a rude bloke on the second floor, a woman named Ione patching tears and drinking silk tea, something called the Stayover in the basement, and I had absolutely no idea what any of it meant.`,
     choices: [
       go("d_lobby", "The lobby opened up", {
         journal: 1,
@@ -230,7 +231,7 @@ Trudie kept tugging me forward. "You handle the east wing, I'll finish the lobby
     location: "Lobby",
     art: "/art/lobby.jpg",
     speaker: "jack",
-    text: `The fizz had a smell under the lemon soap. Sweet. Wrong. Trudie patted it like a dog as we passed and did not slow down.
+    text: `The fizz had a smell under the lemon soap, sweet in a way that made my fillings ache, which I reckon is not how carpet is meant to smell. Trudie patted it like a dog as we passed and did not slow down.
 
 A growl rolled out of the kitchen.`,
     choices: [go("d_brig", "The kitchen door slammed open")]
@@ -250,11 +251,11 @@ A growl rolled out of the kitchen.`,
     location: "Kitchen",
     art: "/art/brig-kitchen.jpg",
     portrait: "/art/brig.jpg",
-    speaker: "brig",
+    speaker: "jack",
     time: "morning",
     text: `"Trudie! If that waste-of-skin handyman is late again I'm going to spank his ass myself!"
 
-The kitchen door slammed open. Pointed furry ears. Impossibly sharp teeth. A white chef's jacket straining against a body that looked like it could bench a truck and then eat it. And a long furry tail that lashed about behind her.
+The kitchen door slammed open. Pointed furry ears, impossibly sharp teeth, a white chef's jacket straining against a body that looked like it could bench a truck and then eat it, and a long furry tail that lashed about behind her.
 
 "You," she growled, jabbing a wooden spoon my way. "Late again! What's your excuse this time, Causey?"
 
@@ -270,8 +271,8 @@ What the actual fucking fuckery fuck? Was I still asleep?`,
     location: "Kitchen",
     art: "/art/brig-stove.jpg",
     portrait: "/art/brig.jpg",
-    speaker: "brig",
-    text: `Ancient cast iron. Flames flickering between honest orange and something sicky greeny-black. Smelled like burning herbs and rot. My hands went to work without asking me, which was either competence or the hotel wearing me like a glove.
+    speaker: "jack",
+    text: `Ancient cast iron, all covered in dials and pipes older than God. Flames flickering between honest orange and something sicky greeny-black. Smelled like burning herbs and rot. My hands went to work without asking me, which was either competence or the hotel wearing me like a glove.
 
 She shoved a bowl at me without warning. The one without the chip. Warm, rich, a spice kick that almost cleared the hangover. "She saved you the good bowl," Trudie whispered. "It was the nearest bowl!" I ate. I didn't argue. "Funny," Brig said. "You say that every few days. Then you go back to fixing things like nothing happened."
 
@@ -286,10 +287,10 @@ She shoved a bowl at me without warning. The one without the chip. Warm, rich, a
   add({
     id: "d_brig_chop",
     location: "Kitchen",
-    art: "/art/brig-kitchen.jpg",
+    art: "/art/brig-stove.jpg",
     portrait: "/art/brig.jpg",
-    speaker: "brig",
-    text: `"Chop chop. Uniformly. Uneven dice and I'm using your fingers for stock." I fix pipes. I do not dice onions for a woman with a tail. Trudie plucked the knife away with a wink. "What she actually wants is the stove."
+    speaker: "jack",
+    text: `"Chop chop. Uniformly. Uneven dice and I'm using your fingers for stock." I fixed pipes. I did not, as a matter of course, dice onions for a woman with a tail. Trudie plucked the knife away with a wink. "What she actually wants is the stove."
 
 I did the stove anyway. She shoved the unchipped bowl at me and I ate, because the stew smelled stupidly good and I looked like shit. "Funny. You say you don't know what you're doing here every few days. Then you go back to fixing things."
 
@@ -301,8 +302,8 @@ I did the stove anyway. She shoved the unchipped bowl at me and I ate, because t
     location: "Kitchen",
     art: "/art/brig-kitchen.jpg",
     portrait: "/art/brig.jpg",
-    speaker: "brig",
-    text: `"I\u2026 just woke up?" Her ears flattened. "Woken up. Right. That's just perfect." Those ears. That tail. The teeth. The flames around her flared higher than physics allowed. This wasn't a costume.
+    speaker: "jack",
+    text: `"I\u2026 just woke up?" Her ears flattened. "Woken up. Right. That's just perfect." Those ears, and that tail, and the teeth, and the flames around her flaring higher than physics allowed. This wasn't a costume.
 
 Trudie dragged me to the oven anyway. I ate. The unchipped bowl. "You say that every few days," Brig said. "Then you go back to fixing things like nothing happened."
 
@@ -341,7 +342,7 @@ The rag, again.`;
     art: "/art/trudie-mop.jpg",
     portrait: "/art/trudie.jpg",
     speaker: "jack",
-    text: `I got down. The fizz died under the cloth the way a valve dies when you finally seat it. I told her she was good at this \u2014 the work, I mean \u2014 and she went a shameless rose color, the edges of her going vague like she'd stopped bothering with an outline.
+    text: `I got down. The fizz died under the cloth the way a valve dies when you finally seat it. I told her she was good at this, the work, I mean, and she went a shameless rose color, the edges of her going vague like she'd stopped bothering with an outline.
 
 The desk was empty. The plate said the innkeeper post was vacant, and I want you to pay attention to that word, because vacant is doing a lot of work.`,
     choices: (s) => desk(s, {
@@ -355,24 +356,24 @@ The desk was empty. The plate said the innkeeper post was vacant, and I want you
     location: "Lobby",
     art: "/art/lobby.jpg",
     portrait: "/art/trudie.jpg",
-    speaker: "trudie",
-    text: `"Suit yourself." Tight circles. She was very good at this and very used to doing it alone, which I noticed in the way I notice a hinge that's been oiled by the same hand for years. "Desk needs you. I don't."
+    speaker: "jack",
+    text: `"Suit yourself." She went back to tight circles, and she was very good at this and very used to doing it alone, which I noticed the way I notice a hinge that's been oiled by the same hand for years. "Desk needs you. I don't."
 
-Mahogany. A flickering ledger. INNKEEPER. Vacant. The boards under the east seam made a rotten little sound.`,
+The desk was still vacant. The boards under the east seam made a rotten little sound.`,
     choices: (s) => desk(s)
   });
   add({
     id: "d3_chaos",
     location: "Lobby",
-    art: "/art/trudie-hall.jpg",
+    art: "/art/lobby.jpg",
     portrait: "/art/trudie.jpg",
-    speaker: "trudie",
-    text: `I pulled. She was heavier than she looked, then lighter, like water. The rag slapped the tiles. The fizz climbed. She laughed and ran for the stairs. "Two o'clock is going to be so rude."
+    speaker: "jack",
+    text: `I pulled. She was heavier than she looked, then lighter, like water. The rag slapped the tiles. The fizz climbed. She laughed and ran for the stairs, which I guess means I had just made her morning.
 
 The desk was still vacant. The boards were not going to wait for me to feel clever about it.`,
     choices: (s) => desk(s, {
       set: { flagChaos: true, mutSpillIgnored: true },
-      addRule: "If you pull her off the seal, two o'clock comes hunting."
+      addRule: "If you pull her off the seal, the boards go early."
     })
   });
   add({
@@ -396,7 +397,7 @@ The east boards were done pretending.`,
     location: "Front desk",
     art: "/art/desk.jpg",
     speaker: "jack",
-    text: `One tap. The sound went further than the room. Somewhere below, something answered. Trudie, without looking up: "Don't do that twice. House rule."
+    text: `I tapped it once and the sound went further than the room, which it had no business doing. Somewhere below, something answered. Trudie, without looking up: "Don't do that twice. House rule."
 
 The east boards were done pretending.`,
     choices: [
@@ -474,7 +475,7 @@ The east boards were done pretending.`,
     art: "/art/boards.jpg",
     speaker: "jack",
     time: "morning",
-    text: `Offcut. Two nails waiting like they'd been set out for me. My hands signed the inside of it without asking. The cold stopped coming up. Trudie whooped like I'd done a trick.`,
+    text: `There was an offcut and two nails waiting like they'd been set out for me, which I guess is the hotel being helpful or creepy. My hands signed the inside of the patch without asking. The cold stopped coming up. Trudie whooped like I'd done a trick.`,
     choices: () => jobs({
       journal: 1,
       addRule: "Ten o'clock is the east boards. Patch them. Don't climb in."
@@ -483,10 +484,10 @@ The east boards were done pretending.`,
   add({
     id: "d5_look",
     location: "East boards",
-    art: "/art/basement.jpg",
+    art: "/art/stairs-three.jpg",
     speaker: "jack",
     time: "morning",
-    text: `Like the colossal fucking idiot everyone always said I was, I got down on my elbows. Silk. A lot of it. A shape that might have been a boy once. A click. Then another. I got back before the fourth.
+    text: `Like the colossal fucking idiot everyone always said I was, I got down on my elbows and looked. Silk down there, a lot of it, and a shape that might have been a boy once if boys came with too many hours in them. A click, then another. I got back before the fourth.
 
 The hole stayed. The day wasn't finished.`,
     choices: () => jobs({ journal: 1 })
@@ -496,9 +497,9 @@ The hole stayed. The day wasn't finished.`,
     location: "East boards",
     art: "/art/lobby.jpg",
     portrait: "/art/trudie.jpg",
-    speaker: "trudie",
+    speaker: "jack",
     time: "morning",
-    text: `"Good boy." Joke and not. "Ione will silk it. You go find a kettle. Or a life."
+    text: `"Good boy." She said it like a joke and like it wasn't. "Ione will silk it. You go find a kettle. Or a life."
 
 The hole stayed. The cold stayed. I had chosen not to be useful.`,
     choices: () => jobs()
@@ -520,11 +521,11 @@ I fixed a leaky pipe on pure muscle memory, then a flickering fixture on the sec
     art: "/art/stairs-three.jpg",
     speaker: "jack",
     time: "three",
-    text: `The clock struck three and the temperature dropped like someone had kicked my ass into a deep freeze. Lights flickered. A dragging sound from underneath.
+    text: `The clock struck three and the temperature dropped like someone had kicked my ass into a deep freeze. Lights flickered, and there was a dragging sound from underneath, which I did not like at all.
 
 Black mold on the service stairwell, in patterns that almost looked like handprints. The basement door at the bottom was cracked open. A child's voice.
 
-I could follow it, like the colossal fucking idiot everyone always said I was. I could walk the other way. I could take the unlit stairs, on account of the bulb I hadn't got around to fixing.`,
+I could follow it. I could walk the other way. I could take the unlit stairs, on account of the bulb I hadn't got around to fixing.`,
     choices: [
       go("d9_down", "Follow the sound"),
       go("d9_away", "Walk the other way"),

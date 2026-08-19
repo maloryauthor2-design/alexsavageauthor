@@ -185,7 +185,7 @@
       </div>
     </div>
 
-    <script src="./game.js?v=arc1b"></script>
+    <script src="./game.js?v=arc1c"></script>
     <script>
       const ART = ".";
       const KEY = "sans-nuit-arc1";
@@ -252,8 +252,15 @@
         if (scene.portrait) {
           $("who").classList.remove("hidden");
           $("portrait").src = artUrl(scene.portrait);
-          $("role").textContent = scene.speaker === "jack" ? "You" : scene.speaker || "";
-          $("whoName").textContent = NAMES[scene.speaker] || "Jack Causey";
+          const whoKey = scene.portrait.includes("trudie")
+            ? "trudie"
+            : scene.portrait.includes("brig")
+              ? "brig"
+              : scene.portrait.includes("leland")
+                ? "leland"
+                : scene.speaker;
+          $("role").textContent = whoKey === "jack" ? "You" : whoKey;
+          $("whoName").textContent = NAMES[whoKey] || "Jack Causey";
         } else {
           $("who").classList.add("hidden");
         }
