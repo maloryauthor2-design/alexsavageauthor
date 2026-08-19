@@ -163,7 +163,7 @@ The lobby's already trying to do what now?`,
     choices: [
       go("d2_open", "Yank it open"),
       go("d2_listen", "Keep it shut. Listen first."),
-      go("d2_window", "The sash. Out.")
+      go("d2_boots", "Find your boots first.")
     ]
   });
   add({
@@ -193,17 +193,20 @@ And there she was. Young woman in an unnecessarily slutty maid outfit, name tag 
     choices: () => hallAct().map((c) => ({ ...c, set: { heardBridie: true }, journal: 1 }))
   });
   add({
-    id: "d2_window",
-    location: "Courtyard",
-    art: "/art/courtyard.jpg",
+    id: "d2_boots",
+    location: "Room 204",
+    art: "/art/trudie-door.jpg",
+    portrait: "/art/trudie.jpg",
     speaker: "jack",
     time: "morning",
-    text: `The sash stuck, then gave, the way a sash does when nobody's planed three millimeters off the bottom in about forty years. I dropped into a courtyard that smelled of wet stone and something sweeter, like fruit left too long. The fountain in the middle was dry as a lie. I got four steps toward what I hoped was a front door.
+    text: `I went looking for my boots, because I am a grown man and I was not going out there in my socks.
 
-"JACK CAUSEY you complete menace!"
+I didn't find them.
 
-She'd poured out after me. Young woman, unnecessarily slutty maid outfit, blue-green hair, all the piercings in the world, a filthy grin, and a crooked name tag on the left of an enormous pair of tits that said Trudie Crisp. Slightly see-through. Slightly tacky. She grabbed my wet wrist and started hauling me toward the front door like this was a perfectly normal way to start a Tuesday.`,
-    choices: () => hallAct().map((c) => ({ ...c, set: { arrivedWet: true }, journal: 1 }))
+The door opened anyway. Young woman in an unnecessarily slutty maid outfit, name tag on the left of an enormous pair of tits that said Trudie Crisp, blue-green hair, filthy grin, and one slightly tacky hand already around my wrist.
+
+"Slowpoke," she said. "Brig's going mental." She started walking. Bare feet on the carpet would have to do.`,
+    choices: hallAct
   });
   add({
     id: "d_hall_listen",
