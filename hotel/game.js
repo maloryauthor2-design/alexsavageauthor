@@ -239,7 +239,7 @@ She was still talking. Rulekeeper. Ione. Stayover in the basement. I was not, at
   add({
     id: "d_hall_stop",
     location: "Corridor",
-    art: "/art/corridor.jpg",
+    art: "/art/trudie-hall.jpg",
     portrait: "/art/trudie.jpg",
     speaker: "jack",
     text: (s) => `"Where are we going? Which hotel is this? Why do you know my name?"
@@ -251,15 +251,15 @@ I did not know how it was. I knew the floral wallpaper and the damp smell${s.fla
   });
   add({
     id: "d_ask_rk",
-    location: "Corridor",
-    art: "/art/trudie-hall.jpg",
+    location: "Lobby",
+    art: "/art/lobby.jpg",
     portrait: "/art/trudie.jpg",
     speaker: "jack",
-    text: `"The Rulekeeper," I said, because it had sounded like a job title and I have always been a fool for job titles.
+    text: `"The Rulekeeper," I said, because it had sounded like a job title, and I have always been a mug for job titles.
 
 "Second floor, clipboard, face like a cancelled booking. Don't take the stairs in the dark, he gets all official." She squeezed my wrist, delighted I'd asked. "You'll meet him. Everyone does."
 
-Then we turned a corner and the lobby opened up. Pastel. Dirty brass gone gold where hands land. A leather register. And the carpet near the far wall, bubbling like mold in fast-forward.`,
+Then we turned a corner and the lobby of the hotel proper opened up. More of those pastel walls. Dirty brass gone gold where hands actually land. A leather register sitting open. And the carpet near the far wall, bubbling, properly fizzing, small dark patches spreading outwards like mold in fast-forward.`,
     choices: () => lobbyAct({
       journal: 1,
       addRule: "Don't take the stairs in the dark. The Rulekeeper gets official."
@@ -267,8 +267,8 @@ Then we turned a corner and the lobby opened up. Pastel. Dirty brass gone gold w
   });
   add({
     id: "d_ask_ione",
-    location: "Corridor",
-    art: "/art/trudie-hall.jpg",
+    location: "Lobby",
+    art: "/art/lobby.jpg",
     portrait: "/art/trudie.jpg",
     speaker: "jack",
     text: `"Ione," I said. "Silk tea."
@@ -277,7 +277,7 @@ Then we turned a corner and the lobby opened up. Pastel. Dirty brass gone gold w
 
 I had not, as far as I knew, always asked about anyone.
 
-Then the lobby. Pastel. Brass. A register I didn't get to read. Carpet fizzing like it had opinions.`,
+Then the lobby opened whether I was ready or not, pastel and brass and a register I didn't get to read, and the carpet fizzing like it had opinions.`,
     choices: () => lobbyAct({
       journal: 1,
       addRule: "Ione has five arms. She patches tears. Stay out of her way."
@@ -285,15 +285,15 @@ Then the lobby. Pastel. Brass. A register I didn't get to read. Carpet fizzing l
   });
   add({
     id: "d_ask_stay",
-    location: "Corridor",
-    art: "/art/corridor.jpg",
+    location: "Lobby",
+    art: "/art/lobby.jpg",
     portrait: "/art/trudie.jpg",
     speaker: "jack",
     text: `"The Stayover," I said. "In the basement."
 
-Her grin went a bit tight, which on her is like watching water decide to be a wall. "Not on today's list, slowpoke. Don't go down. I mean it. I always mean it and you never listen."
+Her grin went a bit tight. On her that looks like she's trying to remember how faces work. "Not on today's list, slowpoke. Don't go down. I mean it. I always mean it and you never listen."
 
-We turned into the lobby anyway. Bubbling carpet. Open register. Trudie still had my wrist.`,
+We turned into the lobby anyway. The carpet was bubbling. The register was open. She still had my wrist.`,
     choices: () => lobbyAct({
       journal: 1,
       addRule: "The basement is not on the schedule right now."
@@ -301,39 +301,39 @@ We turned into the lobby anyway. Bubbling carpet. Open register. Trudie still ha
   });
   add({
     id: "d_look_ripple",
-    location: "Corridor",
-    art: "/art/trudie-hall.jpg",
+    location: "Lobby",
+    art: "/art/lobby.jpg",
     portrait: "/art/trudie.jpg",
     speaker: "jack",
     text: `"You're doing a thing," I said. "With the light. Like you aren't entirely\u2026 here."
 
 "Rude. I'm extremely here." She bounced on her heels and the ripples ran the length of her, which did not help my argument. "Slime, Jack. We've had this talk. You always go pink when we have this talk."
 
-Then the lobby, and I was still pink, and the carpet was still boiling.`,
+Then we were in the lobby and I was still pink, and the carpet was still boiling, which I reckon is not how you want to start a Tuesday.`,
     choices: lobbyAct
   });
   add({
     id: "d_look_slow",
-    location: "Corridor",
-    art: "/art/trudie-hall.jpg",
+    location: "Lobby",
+    art: "/art/lobby.jpg",
     portrait: "/art/trudie.jpg",
     speaker: "jack",
     text: `"Could we," I said, "not run."
 
-She did not not-run. She did a little skip that made the maid skirt a matter of faith. "Brig's going to spank you. I want a good seat. Come on."
+She did not slow down. She did a little skip that made the maid skirt a lost cause. "Brig's going to spank you. I want a good seat. Come on."
 
-The lobby opened whether I was ready or not. Register. Brass. Carpet fizzing. A growl already warming up in the kitchen.`,
+The lobby opened whether I was ready or not, register and brass and carpet fizzing, and a growl already warming up in the kitchen.`,
     choices: lobbyAct
   });
   add({
     id: "d_look_stare",
-    location: "Corridor",
-    art: "/art/trudie-hall.jpg",
+    location: "Lobby",
+    art: "/art/lobby.jpg",
     portrait: "/art/trudie.jpg",
     speaker: "jack",
-    text: `I didn't say a word. I watched. I am not proud. The half-second of leftover jiggle, the ripples, the crooked tag, the whole stupid beautiful mess of her, and then we were in the lobby and I had learned nothing except that I am, as previously advertised, a man.
+    text: `I didn't say a word. I watched. I am not proud. The leftover jiggle, the ripples, the crooked tag, the whole stupid beautiful mess of her. Then we were in the lobby and I had learned nothing except that I am, as previously advertised, still me.
 
-Carpet bubbling. Register open. Kitchen growling.`,
+The carpet was bubbling. The register was open. The kitchen was growling.`,
     choices: lobbyAct
   });
   add({
@@ -356,7 +356,8 @@ Trudie kept tugging me forward. "You handle the east wing, I'll finish the lobby
   add({
     id: "d_lobby_carpet",
     location: "Lobby",
-    art: "/art/lobby.jpg",
+    art: "/art/carpet.jpg",
+    portrait: "/art/brig.jpg",
     speaker: "jack",
     text: `The fizz had a smell under the lemon soap, sweet in a way that made my fillings ache, which I reckon is not how carpet is meant to smell. Trudie patted it like a dog as we passed and did not slow down.
 
@@ -367,14 +368,17 @@ Then a growl rolled out of the kitchen, and the door slammed open, and there wer
   });
   add({
     id: "d_lobby_desk",
-    location: "Lobby",
-    art: "/art/desk.jpg",
+    location: "Kitchen",
+    art: "/art/brig-kitchen.jpg",
+    portrait: "/art/brig.jpg",
     speaker: "jack",
     text: `The register was open. Names that flickered if you looked too long. I didn't get a proper look. She didn't let me.
 
 Then a growl rolled out of the kitchen, and the door slammed open, and there were ears, and teeth, and a tail, and a wooden spoon pointed at my chest like a warrant.
 
-"You. Late again! What's your excuse this time, Causey?"`,
+"You. Late again! What's your excuse this time, Causey?"
+
+What the actual fucking fuckery fuck? Was I still asleep?`,
     choices: kitchenAct
   });
   add({
@@ -429,23 +433,25 @@ I did the stove anyway. She shoved the unchipped bowl at me and I ate, because t
   add({
     id: "d_brig_stare",
     location: "Kitchen",
-    art: "/art/brig-kitchen.jpg",
+    art: "/art/brig-stove.jpg",
     portrait: "/art/brig.jpg",
     speaker: "jack",
     text: `"I\u2026 just woke up?" Her ears flattened. "Woken up. Right. That's just perfect." Those ears, and that tail, and the teeth, and the flames around her flaring higher than physics allowed. This wasn't a costume.
+
+Trudie dragged me to the oven anyway. I ate. The unchipped bowl. "You say that every few days," Brig said. "Then you go back to fixing things like nothing happened."
 
 "Good enough. Get out of my kitchen and go earn your fucking salary."`,
     choices: kitchenOut
   });
   add({
     id: "d_brig_days",
-    location: "Kitchen",
-    art: "/art/brig-stove.jpg",
-    portrait: "/art/brig.jpg",
+    location: "Lobby",
+    art: "/art/trudie-mop.jpg",
+    portrait: "/art/trudie.jpg",
     speaker: "jack",
     text: `"Every few days," I said. "You said I say that every few days."
 
-Her ears went flat, the careful way. "Did I. Eat your stew, Causey." She didn't explain. I didn't make her. I have been married, I reckon I know when a woman has decided a sentence is finished.
+Her ears went flat, the careful way. "Did I. Eat your stew, Causey." She didn't explain. I didn't make her. I have been told to drop a subject before, I reckon I know the shape of it.
 
 I came back out into the lobby with the taste of it still in my mouth. The carpet near the far wall was still bubbling, and Trudie was pointing at it with a rag like I might have forgotten.
 
@@ -457,9 +463,9 @@ I came back out into the lobby with the taste of it still in my mouth. The carpe
   });
   add({
     id: "d_brig_thanks",
-    location: "Kitchen",
-    art: "/art/brig-stove.jpg",
-    portrait: "/art/brig.jpg",
+    location: "Lobby",
+    art: "/art/trudie-mop.jpg",
+    portrait: "/art/trudie.jpg",
     speaker: "jack",
     text: `"Thanks," I said, because the bowl had been the one without the chip and I am not entirely made of pride.
 
