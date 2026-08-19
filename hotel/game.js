@@ -52,13 +52,6 @@ var Hotel = (() => {
     if (!flags.lookedRoom) c.push(go("d1_room", "That stain in the corner", extra));
     if (!flags.lookedSelf) c.push(go("d1_self", "Catch yourself in the mirror", extra));
     c.push(go("d2", "Answer the door", extra));
-    if (c.length === 1) {
-      return [
-        go("d2_open", "Yank it open", extra),
-        go("d2_listen", "Keep it shut. Listen first.", extra),
-        go("d2_window", "The sash. Out.", extra)
-      ];
-    }
     return c;
   }
   var hallAct = () => [
@@ -80,10 +73,8 @@ var Hotel = (() => {
     go("d4_bell", "Tap the bell. Once.", extra),
     go("d5", "The boards", extra)
   ];
-  var three = (extra = {}) => [
-    go("d9_down", "Follow the sound", extra),
-    go("d9_away", "Walk the other way", extra),
-    go("d9_up", "The dark stairs. Up.", extra)
+  var jobs = (extra = {}) => [
+    go("d_jobs", "Out into the halls", extra)
   ];
   add({
     id: "d1",
@@ -213,15 +204,7 @@ She didn't stop talking. Night shift, rude. East wing, dramatic. Ione patching t
 
 It all sounded very involved and I had absolutely no idea what any of it meant.`,
     choices: [
-      go("d_lobby", "We turned a corner", {
-        journal: 1,
-        addRule: "Rulekeeper walks the second floor. Stayover is in the basement. Ione patches tears."
-      }),
-      go("d_lobby", "Bare feet on the carpet. Keep walking.", {
-        journal: 1,
-        addRule: "Rulekeeper walks the second floor. Stayover is in the basement. Ione patches tears."
-      }),
-      go("d_lobby", "Don't let go of the wrist.", {
+      go("d_lobby", "The lobby opened up", {
         journal: 1,
         addRule: "Rulekeeper walks the second floor. Stayover is in the basement. Ione patches tears."
       })
@@ -237,12 +220,10 @@ It all sounded very involved and I had absolutely no idea what any of it meant.`
 
 And Christ, what a view. Trudie's ass swayed ahead of me with every bouncy step, her minuscule maid skirt doing absolutely nothing. When she stopped at the corner, all that shifting and jiggling didn't stop when she did. It carried on for a half-second longer than it had any business carrying on, the way water keeps moving in a glass after you've set the glass down.
 
-And hang on. Was there something wrong with the light? Translucent ripples running through her as if she wasn't entirely solid. Pretty fucking hypnotic, if I'm honest.`,
-    choices: [
-      go("d_lobby", "We turned a corner"),
-      go("d_lobby", "Blink. Try to get a grip."),
-      go("d_lobby", "Look at the wallpaper. Fail.")
-    ]
+And hang on. Was there something wrong with the light? Translucent ripples running through her as if she wasn't entirely solid. Pretty fucking hypnotic, if I'm honest.
+
+She was still talking. Rulekeeper. Ione. Stayover in the basement. I was not, at that moment, taking notes.`,
+    choices: [go("d_lobby", "The lobby opened up")]
   });
   add({
     id: "d_hall_stop",
@@ -255,11 +236,7 @@ And hang on. Was there something wrong with the light? Translucent ripples runni
 She didn't slow down. "Kitchen first, slowpoke. Brig's going to spank your ass herself if you're late, and I want to watch. Rulekeeper's on the second floor, Ione's in a mood, Stayover's acting up in the basement. You know how it is."
 
 I did not know how it was. I knew the floral wallpaper and the damp smell and that my boots were still in 204.`,
-    choices: [
-      go("d_lobby", "She didn't stop. The lobby did."),
-      go("d_lobby", "Save the questions. Walk."),
-      go("d_lobby", "Let her have the wrist.")
-    ]
+    choices: [go("d_lobby", "The lobby opened up")]
   });
   add({
     id: "d_lobby",
@@ -286,11 +263,7 @@ Trudie kept tugging me forward. "You handle the east wing, I'll finish the lobby
     text: `The fizz had a smell under the lemon soap. Sweet. Wrong. Trudie patted it like a dog as we passed and did not slow down.
 
 A growl rolled out of the kitchen.`,
-    choices: [
-      go("d_brig", "The kitchen door"),
-      go("d_brig", "Don't ask what a lobby seal is"),
-      go("d_brig", "She's still got your wrist")
-    ]
+    choices: [go("d_brig", "The kitchen door slammed open")]
   });
   add({
     id: "d_lobby_desk",
@@ -300,11 +273,7 @@ A growl rolled out of the kitchen.`,
     text: `The register was open. Names that flickered if you looked too long. I didn't get a proper look. She didn't let me.
 
 A growl rolled out of the kitchen.`,
-    choices: [
-      go("d_brig", "The kitchen door"),
-      go("d_brig", "Don't ask what a lobby seal is"),
-      go("d_brig", "She's still got your wrist")
-    ]
+    choices: [go("d_brig", "The kitchen door slammed open")]
   });
   add({
     id: "d_brig",
@@ -501,11 +470,9 @@ The east boards were done pretending.`,
     location: "East boards",
     art: "/art/boards.jpg",
     speaker: "jack",
-    time: "three",
-    text: `Offcut. Two nails waiting like they'd been set out for me. My hands signed the inside of it without asking. The cold stopped coming up.
-
-I fixed a leaky pipe on muscle memory, then a flickering fixture. The clock struck three. Temperature dropped like someone had kicked me into a deep freeze. Dragging, underneath. Mold like handprints. A child's voice.`,
-    choices: () => three({
+    time: "morning",
+    text: `Offcut. Two nails waiting like they'd been set out for me. My hands signed the inside of it without asking. The cold stopped coming up. Trudie whooped like I'd done a trick.`,
+    choices: () => jobs({
       journal: 1,
       addRule: "Ten o'clock is the east boards. Patch them. Don't climb in."
     })
@@ -515,11 +482,11 @@ I fixed a leaky pipe on muscle memory, then a flickering fixture. The clock stru
     location: "East boards",
     art: "/art/basement.jpg",
     speaker: "jack",
-    time: "three",
+    time: "morning",
     text: `Like the colossal fucking idiot everyone always said I was, I got down on my elbows. Silk. A lot of it. A shape that might have been a boy once. A click. Then another. I got back before the fourth.
 
-Pipe. Light. Three o'clock. The basement door was cracked open. Something down there was breathing on a schedule.`,
-    choices: () => three({ journal: 1 })
+The hole stayed. The day wasn't finished.`,
+    choices: () => jobs({ journal: 1 })
   });
   add({
     id: "d5_leave",
@@ -527,11 +494,45 @@ Pipe. Light. Three o'clock. The basement door was cracked open. Something down t
     art: "/art/lobby.jpg",
     portrait: "/art/trudie.jpg",
     speaker: "trudie",
-    time: "three",
+    time: "morning",
     text: `"Good boy." Joke and not. "Ione will silk it. You go find a kettle. Or a life."
 
-I found a pipe instead, and a light, and then three o'clock found me. Dragging. Mold. A child's voice from a door that should have been shut.`,
-    choices: () => three()
+The hole stayed. The cold stayed. I had chosen not to be useful.`,
+    choices: () => jobs()
+  });
+  add({
+    id: "d_jobs",
+    location: "Second floor",
+    art: "/art/corridor.jpg",
+    speaker: "jack",
+    time: "afternoon",
+    text: `I grabbed the tools \u2014 were they even my tools? \u2014 and headed out. The pastel hallways all looked the same, and the damp smell was getting much, much stronger.
+
+I fixed a leaky pipe on pure muscle memory, then a flickering fixture on the second floor. Every one of these tasks felt familiar to my hands. My head kept screaming I'd never been here in my life. These women knew my name. I did not know theirs, not really.
+
+None of it made a jot of sense.`,
+    choices: [
+      go("d9", "Keep mapping the floor"),
+      go("d9", "Find a kettle. Or a life."),
+      go("d9", "Follow the damp smell")
+    ]
+  });
+  add({
+    id: "d9",
+    location: "Service stairs",
+    art: "/art/stairs-three.jpg",
+    speaker: "jack",
+    time: "three",
+    text: `The clock struck three and the temperature dropped like someone had kicked my ass into a deep freeze. Lights flickered. A dragging sound from underneath.
+
+Black mold on the service stairwell, in patterns that almost looked like handprints. The basement door at the bottom was cracked open. A child's voice.
+
+I could follow it, like the colossal fucking idiot everyone always said I was. I could walk the other way. I could take the unlit stairs, on account of the bulb I hadn't got around to fixing.`,
+    choices: [
+      go("d9_down", "Follow the sound"),
+      go("d9_away", "Walk the other way"),
+      go("d9_up", "The dark stairs. Up.")
+    ]
   });
   add({
     id: "d9_down",
