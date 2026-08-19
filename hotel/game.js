@@ -61,10 +61,10 @@ var Hotel = (() => {
     }
     return c;
   }
-  var kitchen = () => [
-    go("d_brig_stove", "The stove. That's a job I understand."),
-    go("d_brig_chop", "Take the cutting board."),
-    go("d_brig_stare", "Stand there. Process the ears.")
+  var hallAct = () => [
+    go("d_hall_listen", "Listen. Try to keep up."),
+    go("d_hall_look", "Watch her walk."),
+    go("d_hall_stop", "Plant your feet. Ask where you're going.")
   ];
   var spill = (extra = {}) => [
     go("d3_mop", "Get on your knees and help", extra),
@@ -168,12 +168,10 @@ The lobby's already trying to do what now?`,
     portrait: "/art/trudie.jpg",
     speaker: "trudie",
     time: "morning",
-    text: `I hurried over and yanked it open. Out in the corridor was a young woman in a, yeah, I'm going to say it, unnecessarily slutty maid outfit. I don't mind saying that I may well have gawped a little. Her name was Trudie Crisp, at least according to the crooked name tag perched on the left of an enormous pair of tits. Blue-green hair, all the piercings in the world, a filthy grin. She grabbed my wrist with one slightly tacky hand.
+    text: `I hurried over and yanked it open. Out in the corridor was a young woman in a, yeah, I'm going to say it, unnecessarily slutty maid outfit. I don't mind saying that I may well have gawped a little. Especially as she looked like she'd been designed by someone with excellent taste in trouble. Her name was Trudie Crisp, at least according to the crooked name tag perched on the left of an enormous pair of tits. Blue-green hair, all the piercings in the world, a filthy grin.
 
-"Come on, slowpoke! Brig's growling, the Rulekeeper's been circling the second floor, Ione's patching tears, and the Stayover's acting up in the basement." Her ass didn't stop when she did.
-
-Then the kitchen door slammed open. Ears. Teeth. A tail. A wooden spoon. "Late again, Causey!"`,
-    choices: kitchen
+Without waiting for me to say anything she reached out and grabbed my wrist with one slightly tacky hand and started dragging me down the hall. I didn't even get a chance to find wherever I'd kicked off my boots.`,
+    choices: hallAct
   });
   add({
     id: "d2_listen",
@@ -183,16 +181,10 @@ Then the kitchen door slammed open. Ears. Teeth. A tail. A wooden spoon. "Late a
     time: "morning",
     text: `I put my ear to the paint, because I am a grown man and this is a reasonable way to start a Tuesday. She was talking to someone who wasn't there. Spore counts. The Stayover in the basement. A Rulekeeper on night shift, quote, rude.
 
-"I can hear you breathing, slowpoke." The handle turned.
+Then, brightly, to the door: "I can hear you breathing, slowpoke." The handle turned anyway.
 
-Trudie Crisp. That's what the name tag said, perched on the left of an enormous pair of tits. Blue-green hair. Ripples through her like she wasn't entirely solid. She already had my wrist.
-
-Then a growl from the kitchen, and a woman with actual furry ears jammed a spoon at my chest.`,
-    choices: () => [
-      go("d_brig_stove", "The stove. That's a job I understand.", { set: { heardBridie: true }, journal: 1 }),
-      go("d_brig_chop", "Take the cutting board.", { set: { heardBridie: true }, journal: 1 }),
-      go("d_brig_stare", "Stand there. Process the ears.", { set: { heardBridie: true }, journal: 1 })
-    ]
+Trudie Crisp. That's what the name tag said, perched on the left of an enormous pair of tits. Blue-green hair. Ripples through her like she wasn't entirely solid. She already had my wrist and she was already walking.`,
+    choices: () => hallAct().map((c) => ({ ...c, set: { heardBridie: true }, journal: 1 }))
   });
   add({
     id: "d2_window",
@@ -200,15 +192,140 @@ Then a growl from the kitchen, and a woman with actual furry ears jammed a spoon
     art: "/art/courtyard.jpg",
     speaker: "jack",
     time: "morning",
-    text: `The sash stuck, then gave, the way a sash does when nobody's planed three millimeters off the bottom in forty years. I got four steps. She poured out after me.
+    text: `The sash stuck, then gave, the way a sash does when nobody's planed three millimeters off the bottom in forty years. Courtyard. Wet stone. A fountain dry as a lie. I got four steps.
 
 "JACK CAUSEY you complete menace!"
 
-Same maid outfit. Same name tag. Same tacky hand on a wet wrist. She dragged me in the front like a bad decision, talking about the Rulekeeper and Ione and the Stayover in the basement, and then a hellhound in a chef's jacket tried to take my head off with a spoon.`,
-    choices: () => [
-      go("d_brig_stove", "The stove. That's a job I understand.", { set: { arrivedWet: true }, journal: 1 }),
-      go("d_brig_chop", "Take the cutting board.", { set: { arrivedWet: true }, journal: 1 }),
-      go("d_brig_stare", "Stand there. Process the ears.", { set: { arrivedWet: true }, journal: 1 })
+She'd poured out after me. Same maid outfit. Same name tag. Same tacky hand, now on a wet wrist. She started hauling me toward the front door like this was a perfectly normal way to start a Tuesday.`,
+    choices: () => hallAct().map((c) => ({ ...c, set: { arrivedWet: true }, journal: 1 }))
+  });
+  add({
+    id: "d_hall_listen",
+    location: "Corridor",
+    art: "/art/trudie-hall.jpg",
+    portrait: "/art/trudie.jpg",
+    speaker: "trudie",
+    text: `I let her pull me. Partly because I was still trying to figure out what the hell was going on, and partly because her grip on my arm was one of the nicer sensations I'd experienced recently.
+
+"Come on, slowpoke! Brig is already growling about breakfast and the Rulekeeper's been circling the second floor for the last hour. Up and at them!"
+
+She didn't stop talking. Night shift, rude. East wing, dramatic. Ione patching three new tears in the second floor and drinking something that might have been silk tea. Spore counts. The Stayover acting up in the basement. Register names in reception flickering.
+
+It all sounded very involved and I had absolutely no idea what any of it meant.`,
+    choices: [
+      go("d_lobby", "We turned a corner", {
+        journal: 1,
+        addRule: "Rulekeeper walks the second floor. Stayover is in the basement. Ione patches tears."
+      }),
+      go("d_lobby", "Bare feet on the carpet. Keep walking.", {
+        journal: 1,
+        addRule: "Rulekeeper walks the second floor. Stayover is in the basement. Ione patches tears."
+      }),
+      go("d_lobby", "Don't let go of the wrist.", {
+        journal: 1,
+        addRule: "Rulekeeper walks the second floor. Stayover is in the basement. Ione patches tears."
+      })
+    ]
+  });
+  add({
+    id: "d_hall_look",
+    location: "Corridor",
+    art: "/art/trudie-hall.jpg",
+    portrait: "/art/trudie.jpg",
+    speaker: "trudie",
+    text: `"Ooh, bed hair!" she said over her shoulder. "Very rugged. I'd tell you not to worry because nobody important's going to see you, but I'm going to see you, and I'm extremely important!"
+
+And Christ, what a view. Trudie's ass swayed ahead of me with every bouncy step, her minuscule maid skirt doing absolutely nothing. When she stopped at the corner, all that shifting and jiggling didn't stop when she did. It carried on for a half-second longer than it had any business carrying on, the way water keeps moving in a glass after you've set the glass down.
+
+And hang on. Was there something wrong with the light? Translucent ripples running through her as if she wasn't entirely solid. Pretty fucking hypnotic, if I'm honest.`,
+    choices: [
+      go("d_lobby", "We turned a corner"),
+      go("d_lobby", "Blink. Try to get a grip."),
+      go("d_lobby", "Look at the wallpaper. Fail.")
+    ]
+  });
+  add({
+    id: "d_hall_stop",
+    location: "Corridor",
+    art: "/art/corridor.jpg",
+    portrait: "/art/trudie.jpg",
+    speaker: "trudie",
+    text: `"Where are we going? Which hotel is this? Why do you know my name?"
+
+She didn't slow down. "Kitchen first, slowpoke. Brig's going to spank your ass herself if you're late, and I want to watch. Rulekeeper's on the second floor, Ione's in a mood, Stayover's acting up in the basement. You know how it is."
+
+I did not know how it was. I knew the floral wallpaper and the damp smell and that my boots were still in 204.`,
+    choices: [
+      go("d_lobby", "She didn't stop. The lobby did."),
+      go("d_lobby", "Save the questions. Walk."),
+      go("d_lobby", "Let her have the wrist.")
+    ]
+  });
+  add({
+    id: "d_lobby",
+    location: "Lobby",
+    art: "/art/lobby.jpg",
+    speaker: "jack",
+    time: "morning",
+    text: `Then we turned a corner and the lobby of the hotel proper opened up. More of those pastel walls. Dirty brass, the sort that's been handled by a hundred years of people and gone soft and gold at all the places where hands actually land. Pride of place, a reception desk with a big leather-bound register sitting open on it. I'd love to tell you I stopped and had a good long think about that. But I didn't. There was rather a lot going on.
+
+Everything looked pretty impressive, except for the carpet near the far wall which was bubbling. Properly fizzing, small dark patches spreading outwards like mold in fast-forward. Utterly bizarre.
+
+Trudie kept tugging me forward. "You handle the east wing, I'll finish the lobby seals before noon. The spores get worse after lunch and Sorrel hates it when they reach the conservatory\u2026"`,
+    choices: [
+      go("d_lobby_carpet", "Look at the carpet"),
+      go("d_lobby_desk", "Look at the register"),
+      go("d_brig", "Keep following her")
+    ]
+  });
+  add({
+    id: "d_lobby_carpet",
+    location: "Lobby",
+    art: "/art/lobby.jpg",
+    speaker: "jack",
+    text: `The fizz had a smell under the lemon soap. Sweet. Wrong. Trudie patted it like a dog as we passed and did not slow down.
+
+A growl rolled out of the kitchen.`,
+    choices: [
+      go("d_brig", "The kitchen door"),
+      go("d_brig", "Don't ask what a lobby seal is"),
+      go("d_brig", "She's still got your wrist")
+    ]
+  });
+  add({
+    id: "d_lobby_desk",
+    location: "Lobby",
+    art: "/art/desk.jpg",
+    speaker: "jack",
+    text: `The register was open. Names that flickered if you looked too long. I didn't get a proper look. She didn't let me.
+
+A growl rolled out of the kitchen.`,
+    choices: [
+      go("d_brig", "The kitchen door"),
+      go("d_brig", "Don't ask what a lobby seal is"),
+      go("d_brig", "She's still got your wrist")
+    ]
+  });
+  add({
+    id: "d_brig",
+    location: "Kitchen",
+    art: "/art/brig-kitchen.jpg",
+    portrait: "/art/brig.jpg",
+    speaker: "brig",
+    time: "morning",
+    text: (s) => s.loop >= 2 ? `"Trudie! If that waste-of-skin handyman is late again I'm going to spank his ass myself!"
+
+On schedule. The door slammed. Ears. Teeth. Wooden spoon. "You. Late again! What's your excuse this time, Causey?"` : `"Trudie! If that waste-of-skin handyman is late again I'm going to spank his ass myself!"
+
+The kitchen door slammed open. Pointed furry ears. Impossibly sharp teeth. A white chef's jacket straining against a body that looked like it could bench a truck and then eat it. And a long furry tail that lashed about behind her.
+
+"You," she growled, jabbing a wooden spoon my way. "Late again! What's your excuse this time, Causey?"
+
+What the actual fucking fuckery fuck? Was I still asleep?`,
+    choices: [
+      go("d_brig_stove", "The stove. That's a job I understand."),
+      go("d_brig_chop", "Take the cutting board."),
+      go("d_brig_stare", "Stand there. Process the ears.")
     ]
   });
   add({
