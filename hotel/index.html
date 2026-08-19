@@ -130,10 +130,10 @@
       <img class="bg" src="./art/trudie-hall.jpg" alt="" onerror="this.onerror=null;this.src='./art/lobby.jpg'" />
       <div class="veil"></div>
       <div class="copy">
-        <p class="kicker">Check in</p>
+        <p class="kicker">Arc 1</p>
         <h1>Save State<br />Innkeeper</h1>
         <p class="lede">
-          You wake in a bed that isn’t yours, with a work order in your fist. Fix what breaks. Then do it all again.
+          You wake in a bed that isn’t yours, with a work order in your fist. Fix what breaks. This demo ends the first time you die.
         </p>
         <div class="stack">
           <button id="begin" class="btn btn-solid" type="button">Check in</button>
@@ -185,10 +185,10 @@
       </div>
     </div>
 
-    <script src="./game.js?v=qa1"></script>
+    <script src="./game.js?v=arc1"></script>
     <script>
       const ART = ".";
-      const KEY = "sans-nuit-static-v10";
+      const KEY = "sans-nuit-arc1";
       const NAMES = { jack: "Jack Causey", trudie: "Trudie Crisp", brig: "Brig", ione: "Ione", leland: "Leland Crum" };
       const $ = (id) => document.getElementById(id);
       const artUrl = (src) => {
@@ -246,7 +246,7 @@
         const scene = Hotel.getScene(state.sceneId);
         const text = Hotel.resolveText(state);
         const choices = Hotel.resolveChoices(state);
-        $("meta").textContent = "Loop " + state.loop + "  /  " + state.deaths + " death" + (state.deaths === 1 ? "" : "s") + "  /  " + Hotel.TIME_LABEL[state.time];
+        $("meta").textContent = "Arc 1  /  " + Hotel.TIME_LABEL[state.time];
         $("art").src = artUrl(scene.art);
         $("prose").textContent = text;
         if (scene.portrait) {
@@ -262,12 +262,12 @@
         if (scene.tone === "death") {
           const b = document.createElement("button");
           b.className = "btn btn-solid";
-          b.textContent = "Wake up. Read the new line.";
+          b.textContent = "That's Arc 1.";
           b.onclick = () => {
             stopSpeak();
-            state = Hotel.wakeFromDeath(state);
+            state = Hotel.resetRun();
             persist();
-            renderPlay();
+            renderTitle();
           };
           box.appendChild(b);
         } else {

@@ -59,11 +59,7 @@ var Hotel = (() => {
     go("d_hall_look", "Watch her walk."),
     go("d_hall_stop", "Plant your feet. Ask where you're going.")
   ];
-  var desk = (s, extra = {}) => s.loop >= 2 ? [
-    go("d10b", "Talk to the postman", extra),
-    go("d4_ledger", "Open the ledger anyway", extra),
-    go("d5", "The boards. They won't wait.", extra)
-  ] : [
+  var desk = (s, extra = {}) => [
     go("d4_ledger", "Open the ledger", extra),
     go("d4_bell", "Tap the bell. Once.", extra),
     go("d5", "The boards", extra)
@@ -78,28 +74,13 @@ var Hotel = (() => {
     speaker: "jack",
     time: "dawn",
     text: (s) => {
-      if (s.loop === 1 && s.deaths === 0) {
-        return `I woke up in a bed that I was pretty sure wasn't mine. And there was a work order crumpled in my hand that I'm also sure I'd never seen before. The paper felt\u2026 too real. Is that actually a thing? It was scrawled on hotel stationery, in handwriting that looked suspiciously like it might well be mine.
+      return `I woke up in a bed that I was pretty sure wasn't mine. And there was a work order crumpled in my hand that I'm also sure I'd never seen before. The paper felt\u2026 too real. Is that actually a thing? It was scrawled on hotel stationery, in handwriting that looked suspiciously like it might well be mine.
 
 Fix what breaks. Don't ask questions. Then do it all again.
 
 Fuck knows what that meant. Last clear thing was Taverners, then the Bushmills, and now a pastel nightmare that looked like it'd been decorated by someone who'd lost a sizeable bet with a color wheel.
 
 A rapid knocking rattled the door frame.`;
-      }
-      if (s.loop === 2) {
-        const extra = s.workOrder.length > 1 ? `
-
-There's a new line that absolutely was not there yesterday.
-
-${s.workOrder.slice(1).join("\n")}
-
-Okay. Fine. So I'm leaving notes for myself following my brutal death now, am I?` : "";
-        return `Same bed. Same knock. Same bloody stationery in my fist. Head clear as a Sunday morning, which is the first thing that's gone right since Taverners.${extra}
-
-She's going to say Jack. She's going to say late. She is not, as far as I can tell, going to remember a damn thing.`;
-      }
-      return `I did the checks, because apparently that's who I am now. Same stain. Same knock. Work order's grown another line.${s.lastDeath ? ` Last time I ${s.lastDeath.toLowerCase()}` : ""}`;
     },
     choices: (s) => {
       const c = [];
@@ -130,11 +111,7 @@ She's going to say Jack. She's going to say late. She is not, as far as I can te
     location: "Room 204",
     art: "/art/room.jpg",
     speaker: "jack",
-    text: (s) => s.loop >= 2 ? `"Jack! You're late again!"
-
-Word for bloody word. I mouthed late along with her, half a beat behind, like karaoke to a song I hate.
-
-"Brig's going mental. And the lobby's already trying to eat the carpet!"` : `"Jack! You're late again!"
+    text: `"Jack! You're late again!"
 
 The voice was bright, bubbly, and way too cheerful for whatever ungodly hour this was. I'd also never heard it before. But it sounded like it knew me.
 
@@ -275,9 +252,7 @@ A growl rolled out of the kitchen.`,
     portrait: "/art/brig.jpg",
     speaker: "brig",
     time: "morning",
-    text: (s) => s.loop >= 2 ? `"Trudie! If that waste-of-skin handyman is late again I'm going to spank his ass myself!"
-
-On schedule. The door slammed. Ears. Teeth. Wooden spoon. "You. Late again! What's your excuse this time, Causey?"` : `"Trudie! If that waste-of-skin handyman is late again I'm going to spank his ass myself!"
+    text: `"Trudie! If that waste-of-skin handyman is late again I'm going to spank his ass myself!"
 
 The kitchen door slammed open. Pointed furry ears. Impossibly sharp teeth. A white chef's jacket straining against a body that looked like it could bench a truck and then eat it. And a long furry tail that lashed about behind her.
 
@@ -296,7 +271,7 @@ What the actual fucking fuckery fuck? Was I still asleep?`,
     art: "/art/brig-stove.jpg",
     portrait: "/art/brig.jpg",
     speaker: "brig",
-    text: (s) => (s.loop >= 2 ? `"Wards running hot, I reckon. Third fitting down, weeping into the line." Her ears went flat, the careful way. "You've not even looked at it, Causey." The toolkit popped into my hand. I saw it arrive this time.` : `Ancient cast iron. Flames flickering between honest orange and something sicky greeny-black. Smelled like burning herbs and rot. My hands went to work without asking me, which was either competence or the hotel wearing me like a glove.`) + `
+    text: `Ancient cast iron. Flames flickering between honest orange and something sicky greeny-black. Smelled like burning herbs and rot. My hands went to work without asking me, which was either competence or the hotel wearing me like a glove.
 
 She shoved a bowl at me without warning. The one without the chip. Warm, rich, a spice kick that almost cleared the hangover. "She saved you the good bowl," Trudie whispered. "It was the nearest bowl!" I ate. I didn't argue. "Funny," Brig said. "You say that every few days. Then you go back to fixing things like nothing happened."
 
@@ -408,15 +383,8 @@ The desk was still vacant. The boards were not going to wait for me to feel clev
     text: `Yesterday's arrivals were written in a hand that kept changing its mind. CAUSEY, JACK. Room 204. Checked in at a time that was not a time. Under it, fainter, the same name again. I shut it before the page could add another one while I was watching.
 
 The east boards were done pretending.`,
-    choices: (s) => [
-      go("d10b", "There's a man at the desk", {
-        when: (st) => st.loop >= 2,
-        set: { lookedLedger: true },
-        journal: 1,
-        addRule: "The ledger already has your name. Repeatedly."
-      }),
+    choices: [
       go("d5", "The boards", {
-        when: (st) => st.loop < 2,
         set: { lookedLedger: true },
         journal: 1,
         addRule: "The ledger already has your name. Repeatedly."
