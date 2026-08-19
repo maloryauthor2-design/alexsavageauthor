@@ -74,10 +74,13 @@ She's going to say Jack. She's going to say late. She is not going to remember a
     },
     choices: (s) => {
       const c = [];
-      if (!s.flags.lookedRoom) c.push(go("d1_room", "Look at the room properly"));
-      if (!s.flags.lookedOrder) c.push(go("d1_order", "Read the work order"));
-      if (!s.flags.lookedSelf) c.push(go("d1_self", "Check the state of yourself"));
-      c.push(go("d2", "Get up. Deal with the door."));
+      if (!s.flags.lookedOrder) {
+        c.push(go("d1_order", "The paper in your fist"));
+        return c;
+      }
+      if (!s.flags.lookedRoom) c.push(go("d1_room", "The stain in the corner"));
+      if (!s.flags.lookedSelf) c.push(go("d1_self", "The mirror"));
+      c.push(go("d2", "Get up. The door."));
       return c;
     }
   });
@@ -87,17 +90,21 @@ She's going to say Jack. She's going to say late. She is not going to remember a
     art: "/art/room-stain.jpg",
     speaker: "jack",
     text: `Damp bloom in the corner. About a foot across. No run, no tail. Rising, then. Something behind the plaster being all patient about it.`,
-    choices: [go("d2", "The knocking hasn't stopped", { set: { lookedRoom: true }, journal: 1 })]
+    choices: [go("d1", "The knock is still going", { set: { lookedRoom: true }, journal: 1 })]
   });
   add({
     id: "d1_order",
     location: "Room 204",
     art: "/art/room.jpg",
     speaker: "jack",
-    text: (s) => s.workOrder.length === 1 ? `Fix what breaks. Don't ask questions. Then do it all again.
+    text: (s) => s.workOrder.length === 1 ? `Hotel stationery. Handwriting that looked suspiciously like mine.
 
-If this is a callout, it's the worst brief I've ever been given.` : s.workOrder.map((line, i) => `${i + 1}. ${line}`).join("\n"),
-    choices: [go("d2", "She's still knocking", { set: { lookedOrder: true }, journal: 1 })]
+Fix what breaks. Don't ask questions. Then do it all again.
+
+Fuck knows what that meant. If this is a callout, it's the worst brief I've ever been given. If it's a philosophy, it's the last six months of my life printed on nice paper.` : `The list has been growing. Every extra line is a thing I learned by dying.
+
+${s.workOrder.map((line, i) => `${i + 1}. ${line}`).join("\n")}`,
+    choices: [go("d1", "Right.", { set: { lookedOrder: true }, journal: 1 })]
   });
   add({
     id: "d1_self",
@@ -105,7 +112,7 @@ If this is a callout, it's the worst brief I've ever been given.` : s.workOrder.
     art: "/art/mirror.jpg",
     speaker: "jack",
     text: `Jesus Frederico Christ. Hair in every direction. A week's stubble overnight. Eyes like I hadn't slept in a month. The woman knocking did not seem bothered.`,
-    choices: [go("d2", "Door.", { set: { lookedSelf: true }, journal: 1 })]
+    choices: [go("d1", "She's not going to wait", { set: { lookedSelf: true }, journal: 1 })]
   });
   add({
     id: "d2",
