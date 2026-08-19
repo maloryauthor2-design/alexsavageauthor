@@ -78,24 +78,37 @@ Same bed. Same stain. Same knock coming in three\u2026 two\u2026
 
 I already know what she's going to say.`;
     },
-    choices: (s) => [
-      go("door", "Open the door", { to: "door" }),
-      go("work_read", "Read the work order properly", { to: "work_read" }),
-      go("stain", "Have a proper look at that damp", { to: "stain" }),
-      go("stay_bed", "Stay in bed and refuse the day", { to: "stay_bed" }),
-      go("skip", "Skip the script. You know the morning.", {
-        to: "hub",
-        time: "morning",
-        set: { skipRoutine: true, didStove: true },
-        when: (st) => st.deaths >= 2 && st.flags.didStove === false
-      }),
-      go("skip2", "Head straight out. You've done breakfast.", {
-        to: "hub",
-        time: "morning",
-        set: { skipRoutine: true },
-        when: (st) => st.deaths >= 2 && st.flags.knowBasement
-      })
-    ]
+    choices: (s) => {
+      const c = [];
+      if (!s.flags.lookedOrder) {
+        c.push(go("work_read", "Read the work order properly", { hint: "Look" }));
+      }
+      if (!s.flags.lookedStain) {
+        c.push(go("stain", "Have a proper look at that damp", { hint: "Look" }));
+      }
+      if (s.deaths >= 2 && s.flags.knowBasement) {
+        c.push(
+          go("skip2", "Skip the script. Head straight out.", {
+            to: "hub",
+            time: "morning",
+            set: { skipRoutine: true },
+            hint: "Advance"
+          })
+        );
+      } else if (s.deaths >= 2) {
+        c.push(
+          go("skip", "Skip the script. You know breakfast.", {
+            to: "hub",
+            time: "morning",
+            set: { skipRoutine: true, didStove: true },
+            hint: "Advance"
+          })
+        );
+      } else {
+        c.push(go("knock", "The knocking won't stop. Deal with it.", { hint: "Advance" }));
+      }
+      return c;
+    }
   });
   add({
     id: "work_read",
@@ -112,9 +125,7 @@ ${s.workOrder.map((line, i) => `${i + 1}. ${line}`).join("\n")}
 
 I would like, just once, a hint in advance of my horrible murder.`,
     choices: [
-      go("door", "Open the door", { to: "door" }),
-      go("stain", "Check the stain", { to: "stain" }),
-      go("stay_bed", "Stay put", { to: "stay_bed" })
+      go("wake", "The knocking won't wait", { to: "wake", set: { lookedOrder: true } })
     ]
   });
   add({
@@ -127,13 +138,21 @@ I would like, just once, a hint in advance of my horrible murder.`,
 I have told nine different customers the same sentence: buildings don't complain where it hurts. They complain where they're thinnest.
 
 If four people are holding four corners of a place and you still get a stain like this, it isn't the legs. It's that there's more coming down on them than four legs' worth.`,
-    choices: (s) => [
-      go("door", "Answer the door", { to: "door" }),
-      go("cupboard_early", "Go find whatever list this place keeps", {
-        to: "cupboard",
-        when: (st) => st.deaths >= 3
-      }),
-      go("stay_bed", "Ignore the knock", { to: "stay_bed" })
+    choices: [
+      go("wake", "Back to the door", { to: "wake", set: { lookedStain: true } })
+    ]
+  });
+  add({
+    id: "knock",
+    location: "Room 204",
+    art: "/art/room.jpg",
+    speaker: "jack",
+    text: `She's still going. Bright, bubbly, and way too cheerful for whatever ungodly hour this is. She knows my name. I have never heard this voice before in my life.
+
+The handle rattles. Two inches of painted pine between me and whoever thinks I work here.`,
+    choices: [
+      go("door", "Open it", { hint: "Meet her" }),
+      go("stay_bed", "Stay in bed. Make her come in.", { hint: "Refuse the day" })
     ]
   });
   add({
@@ -361,114 +380,82 @@ She snorts. "Funny. You say that every few days."`,
       return bits.join(" ");
     },
     choices: (s) => {
+      const morning = s.time === "dawn" || s.time === "morning";
+      const late = s.time === "evening" || s.time === "night";
       const c = [];
-      if (!s.flags.didStove && (s.time === "dawn" || s.time === "morning")) {
-        c.push(go("kitchen", "Back to the kitchen", { to: "kitchen" }));
+      if (morning) {
+        if (!s.flags.didStove) {
+          c.push(go("kitchen", "The kitchen still wants you", { hint: "Job" }));
+        }
+        if (!s.flags.didPipe) {
+          c.push(go("job_pipe", "There's a leaky pipe that wants a hand", { hint: "Look" }));
+        }
+        if (!s.flags.didLight) {
+          c.push(go("job_light", "Fix the stairwell bulb first", { hint: "Look" }));
+        }
+        if (!s.flags.knowDumbwaiter) {
+          c.push(
+            go("dumbwaiter", "Check that rattling dumbwaiter", {
+              to: "death_dumbwaiter",
+              hint: "Look"
+            })
+          );
+        } else if (s.deaths >= 3) {
+          c.push(go("cupboard", "Read the linen cupboard door properly", { hint: "Look" }));
+        }
+        if (!s.flags.helpedLobby) {
+          c.push(go("lobby_help", "The lobby's still fizzing. Help Trudie.", { hint: "Advance" }));
+        } else {
+          c.push(go("ione_meet", "Second floor. Ione.", { hint: "Advance" }));
+        }
+        return c;
       }
-      c.push(
-        go("lobby_help", "Help Trudie with the lobby seals", {
-          to: "lobby_help",
-          when: () => !s.flags.helpedLobby && s.time !== "night"
-        })
-      );
-      c.push(
-        go("stay_room", "Refuse the day. Stay in 204.", {
-          to: "stay_room",
-          when: () => s.time === "dawn" || s.time === "morning"
-        })
-      );
-      c.push(
-        go("ione_meet", "Second floor. Ione.", {
-          to: "ione_meet",
-          when: () => s.time !== "night"
-        })
-      );
-      c.push(
-        go("conservatory", "Try the conservatory", {
-          to: s.time === "noon" ? "death_spores" : "conservatory"
-        })
-      );
-      c.push(
-        go("basement", "Follow the damp down the service stairs", {
-          to: "basement",
-          when: () => !s.flags.knowBasement || s.time === "three"
-        })
-      );
-      c.push(
-        go("stairs_dark", "Take the unlit stairs", {
-          to: "death_rulekeeper",
-          when: () => !s.flags.didLight && !s.flags.knowStairs
-        })
-      );
-      c.push(
-        go("job_light", "Fix the stairwell bulb first", {
-          to: "job_light",
-          when: () => !s.flags.didLight
-        })
-      );
-      c.push(
-        go("job_pipe", "There's a leaky pipe that wants a hand", {
-          to: "job_pipe",
-          when: () => !s.flags.didPipe && s.time !== "night"
-        })
-      );
-      c.push(
-        go("cupboard", "Read the linen cupboard door properly", { to: "cupboard" })
-      );
+      if (s.time === "three") {
+        c.push(go("basement", "Follow the damp. That's the drag.", { hint: "Risk it" }));
+        c.push(go("wait_three", "Hold still and let it pass", { hint: "Advance" }));
+        return c;
+      }
+      if (late) {
+        if (s.flags.avoidedThree || s.deaths >= 5 || s.flags.metLeland) {
+          c.push(go("leland", "Be in the lobby for the postman", { hint: "Advance" }));
+        }
+        c.push(
+          go("front", "Open the front door", {
+            to: s.time === "night" ? "fountain_night" : "front_day"
+          })
+        );
+        if (s.flags.gatList || s.flags.knowsVacancy) {
+          c.push(go("boiler", "The boiler room. Under the east end.", { hint: "Job" }));
+        }
+        if (s.flags.sawPlate && !s.flags.applied) {
+          c.push(go("apply", "Put your name under Innkeeper", { hint: "Advance" }));
+        }
+        if (c.length === 0) {
+          c.push(go("leland", "Half four. The desk.", { hint: "Advance" }));
+        }
+        return c.slice(0, 4);
+      }
+      c.push(go("ione_meet", "Second floor. Ione.", { hint: "People" }));
       c.push(
         go("register", "Stand behind the reception desk", {
-          to: "register",
-          set: { sawRegister: true }
+          set: { sawRegister: true },
+          hint: "Look"
         })
       );
-      c.push(
-        go("dumbwaiter", "Check that rattling dumbwaiter", {
-          to: "death_dumbwaiter",
-          when: () => !s.flags.knowDumbwaiter
-        })
-      );
-      c.push(
-        go("ladder", "Get the stepladder out. Be useful.", {
-          to: "ladder",
-          when: () => s.flags.intimacyTrudie && !s.flags.knowLadder
-        })
-      );
-      c.push(
-        go("mirror", "Have a celebratory shave", {
-          to: "death_mirror",
-          when: () => (s.time === "evening" || s.flags.avoidedThree) && !s.flags.knowMirrors
-        })
-      );
-      c.push(
-        go("wait_three", "Hold still and let three o'clock pass", {
-          to: "wait_three",
-          when: () => s.time !== "evening" && s.time !== "night" && s.time !== "three" && s.flags.knowBasement
-        })
-      );
-      c.push(
-        go("leland", "Be in the lobby at half four", {
-          to: "leland",
-          when: () => s.flags.avoidedThree || s.time === "evening" || s.deaths >= 5
-        })
-      );
-      c.push(
-        go("front", "Open the front door", {
-          to: s.time === "noon" ? "death_spores" : s.time === "night" ? "fountain_night" : "front_day"
-        })
-      );
-      c.push(
-        go("boiler", "The boiler room. Under the east end.", {
-          to: "boiler",
-          when: () => s.flags.gatList || s.flags.knowsVacancy
-        })
-      );
-      c.push(
-        go("apply", "Put your name under Innkeeper", {
-          to: "apply",
-          when: () => s.flags.sawPlate && !s.flags.applied
-        })
-      );
-      return c;
+      if (s.flags.knowBasement && !s.flags.avoidedThree) {
+        c.push(go("wait_three", "Hold still. Let three o'clock pass.", { hint: "Advance" }));
+      } else {
+        c.push(
+          go("front", "Step outside", {
+            to: s.time === "noon" ? "death_spores" : "front_day",
+            hint: "Risk it"
+          })
+        );
+      }
+      if (s.flags.intimacyTrudie && !s.flags.knowLadder) {
+        c.push(go("ladder", "Get the stepladder out. Be useful.", { hint: "Look" }));
+      }
+      return c.slice(0, 4);
     }
   });
   add({
@@ -1604,6 +1591,8 @@ The basement is now on the schedule.`,
     talkedTrudieRoom: false,
     thankedTrudie: false,
     complimentBrig: false,
+    lookedOrder: false,
+    lookedStain: false,
     sawPlate: false,
     frontDoorNight: false,
     drainedBoiler: false
@@ -1622,7 +1611,9 @@ The basement is now on the schedule.`,
     "sawRegister",
     "talkedTrudieRoom",
     "thankedTrudie",
-    "complimentBrig"
+    "complimentBrig",
+    "lookedOrder",
+    "lookedStain"
   ];
   var TIME_LABEL = {
     dawn: "Just after seven",
