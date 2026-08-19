@@ -112,7 +112,7 @@ There was damp bloom in the corner where the ceiling met the wall and it was run
     location: "Room 204",
     art: "/art/room.jpg",
     speaker: "jack",
-    text: (s) => s.workOrder.length === 1 ? `Three lines. Hotel stationery. Handwriting that looked suspiciously like mine, which is a sentence I do not enjoy thinking about before coffee.
+    text: (s) => s.workOrder.length === 1 ? `Hotel stationery. Handwriting that looked suspiciously like mine, which is a sentence I do not enjoy thinking about before coffee.
 
 Fix what breaks. Don't ask questions. Then do it all again.
 
@@ -140,7 +140,7 @@ I looked beyond rough. The woman knocking didn't seem to be overly bothered abou
   add({
     id: "d2",
     location: "Room 204",
-    art: "/art/trudie-hall.jpg",
+    art: "/art/room.jpg",
     speaker: "jack",
     text: (s) => s.loop >= 2 ? `"Jack! You're late again!"
 
@@ -157,8 +157,8 @@ The voice was bright, bubbly, and way too cheerful for whatever ungodly hour thi
 The lobby's already trying to do what now?`,
     choices: [
       go("d2_open", "Yank the door open", { hint: "Meet her" }),
-      go("d2_listen", "Keep it shut a second. Listen.", { hint: "Wait" }),
-      go("d2_window", "Sash window. Out. Avoid her entirely.", { hint: "Dodge" })
+      go("d2_listen", "Keep it shut. Listen first.", { hint: "Wait" }),
+      go("d2_window", "The sash. Out. Avoid her.", { hint: "Dodge" })
     ]
   });
   add({
@@ -167,14 +167,12 @@ The lobby's already trying to do what now?`,
     art: "/art/trudie-hall.jpg",
     portrait: "/art/trudie.jpg",
     speaker: "trudie",
-    text: `I hurried over and yanked it open. Out in the corridor was a young woman in a, yeah, I'm going to say it, unnecessarily slutty maid outfit. I don't mind saying that I may well have gawped a little. Especially as she looked like she'd been designed by someone with excellent taste in trouble. Her name was Trudie Crisp, at least according to the crooked name tag perched on the left of an enormous pair of tits. Blue-green hair, all the piercings in the world, a filthy grin.
+    text: `I hurried over and yanked it open.
 
-Without waiting for me to say anything she reached out and grabbed my wrist with one slightly tacky hand and started dragging me down the hall. I didn't even get a chance to find wherever I'd kicked off my boots.
+Out in the corridor was a young woman in a, yeah, I'm going to say it, unnecessarily slutty maid outfit. I don't mind saying that I may well have gawped a little. Especially as she looked like she'd been designed by someone with excellent taste in trouble. Her name was Trudie Crisp, at least according to the crooked name tag perched on the left of an enormous pair of tits. Blue-green hair, all the piercings in the world, a filthy grin.
 
-"Ooh, bed hair!" she said over her shoulder. "Very rugged. I'd tell you not to worry because nobody important's going to see you, but I'm going to see you, and I'm extremely important!"
-
-And hang on. Was there something wrong with the light in the corridor? Because it was like I could see translucent ripples running through her as if she wasn't entirely solid. Weird as anything. Pretty fucking hypnotic, if I'm honest.`,
-    choices: [go("d2_meet", "She already has your wrist")]
+Without waiting for me to say anything she reached out and grabbed my wrist with one slightly tacky hand and started dragging me down the hall. I didn't even get a chance to find wherever I'd kicked off my boots.`,
+    choices: [go("d2_hall", "Let her have the wrist")]
   });
   add({
     id: "d2_listen",
@@ -220,18 +218,16 @@ She'd come out the window after me. Barely. Mostly she'd poured. I was still goi
     art: "/art/trudie-hall.jpg",
     portrait: "/art/trudie.jpg",
     speaker: "trudie",
-    text: (s) => s.flags.arrivedWet ? `Young woman. Unnecessarily slutty maid outfit. Blue-green hair, all the piercings in the world, a filthy grin, and a crooked name tag perched on the left of an enormous pair of tits that said Trudie Crisp.
+    text: (s) => s.flags.arrivedWet ? `She caught me in the courtyard. Young woman in an unnecessarily slutty maid outfit, blue-green hair, all the piercings in the world, a filthy grin, and a crooked name tag perched on the left of an enormous pair of tits that said Trudie Crisp.
 
-She was also slightly see-through, and I was wet, and she still grabbed my wrist with one slightly tacky hand.
+She was also slightly see-through, and I was wet, and she still grabbed my wrist with one slightly tacky hand and started hauling me toward the kitchen like this was a perfectly normal way to start a Tuesday.
 
-"Ooh, bed hair! Very rugged. And now you're soggy. I'd tell you not to worry because nobody important's going to see you, but I'm going to see you, and I'm extremely important!"` : `Out in the corridor was a young woman in a, yeah, I'm going to say it, unnecessarily slutty maid outfit. I don't mind saying that I may well have gawped a little. Especially as she looked like she'd been designed by someone with excellent taste in trouble. Her name was Trudie Crisp, at least according to the crooked name tag perched on the left of an enormous pair of tits. Blue-green hair, all the piercings in the world, a filthy grin.
+"Ooh, bed hair! Very rugged. And now you're soggy. I'd tell you not to worry because nobody important's going to see you, but I'm going to see you, and I'm extremely important!"` : `The handle turned. She came in like the door had been a suggestion.
 
-Without waiting for me to say anything she reached out and grabbed my wrist with one slightly tacky hand and started dragging me down the hall. I didn't even get a chance to find wherever I'd kicked off my boots.
+Young woman. Unnecessarily slutty maid outfit. Blue-green hair, all the piercings in the world, a filthy grin, and a crooked name tag on the left of an enormous pair of tits that said Trudie Crisp. She looked like she'd been designed by someone with excellent taste in trouble.
 
-"Ooh, bed hair!" she said over her shoulder. "Very rugged. I'd tell you not to worry because nobody important's going to see you, but I'm going to see you, and I'm extremely important!"
-
-And hang on. Was there something wrong with the light in the corridor? Because it was like I could see translucent ripples running through her as if she wasn't entirely solid.`,
-    choices: [go("d2_hall", "Let her pull you")]
+She grabbed my wrist with one slightly tacky hand. "Ooh, bed hair! Very rugged. I'd tell you not to worry because nobody important's going to see you, but I'm going to see you, and I'm extremely important!"`,
+    choices: [go("d2_hall", "She's not letting go")]
   });
   add({
     id: "d2_hall",
@@ -243,15 +239,17 @@ And hang on. Was there something wrong with the light in the corridor? Because i
 
 "Come on, slowpoke! Brig is already growling about breakfast and the Rulekeeper's been circling the second floor for the last hour. Up and at them!"
 
-${s.flags.heardBridie ? "I'd already heard half of this through the door. Hearing it again didn't make it make any more sense." : "She kept talking whether I was listening or not."} Fragments about spore counts. The Stayover acting up in the basement. Register names in reception flickering. Ione patching tears in the second floor and drinking something that might have been silk tea.
+And Christ, what a view. Trudie's ass swayed ahead of me with every bouncy step, her minuscule maid skirt doing absolutely nothing. When she stopped at the corner, all that shifting and jiggling didn't stop when she did. It carried on for a half-second longer than it had any business carrying on, the way water keeps moving in a glass after you've set the glass down.
+
+And hang on. Was there something wrong with the light? Because it was like I could see translucent ripples running through her as if she wasn't entirely solid. Weird as anything. Pretty fucking hypnotic, if I'm honest.
+
+${s.flags.heardBridie ? "I'd already heard half of the rest through the door." : "She kept talking whether I was listening or not."} The Rulekeeper on night shift, rude. Ione patching tears in the second floor and drinking something that might have been silk tea. The Stayover acting up in the basement. Register names flickering.
 
 It all sounded very involved and I had absolutely no idea what any of it meant.
 
-We turned toward the lobby. Pastel walls. Dirty brass. A carpet that was, I was fairly sure, fizzing.
-
-Then a growl rolled out of the kitchen.`,
+We turned toward the lobby. A carpet that was, I was fairly sure, fizzing. Then a growl rolled out of the kitchen.`,
     choices: [
-      go("d_brig", "The kitchen door", {
+      go("d_brig", "See about that growl", {
         time: "morning",
         journal: 1,
         addRule: "Rulekeeper walks the second floor. Stayover is in the basement. Ione patches tears."
@@ -633,7 +631,7 @@ The satchel creaked.
     art: "/art/boards.jpg",
     speaker: "jack",
     text: `He was already going. The satchel hit his hip. The boards under the east seam chose that moment to give up the pretence of being wood, which I thought was a bit on the nose, even for this place.`,
-    choices: [go("d5", "Now the floor")]
+    choices: [go("d5", "The boards have given up")]
   });
   add({
     id: "d5",
@@ -720,7 +718,7 @@ I was still trying to mentally map the layout when the clock struck three.`,
   add({
     id: "d9",
     location: "Service stairs",
-    art: "/art/corridor.jpg",
+    art: "/art/stairs-three.jpg",
     speaker: "jack",
     time: "three",
     text: `The lights flickered. From somewhere below, a dragging sound. Black mold on the walls near the service stairwell in patterns that almost looked like\u2026 yeah, they looked like handprints, didn't they?
@@ -743,8 +741,15 @@ I could follow it, like the colossal fucking idiot everyone always said I was. I
 
 "Stay\u2026 with us\u2026"
 
-Something pale and wrong lunged out from behind that door. Far too many arms and legs. A crying child's face. I didn't even have time to scream.`,
-    choices: [go("d9_end_stay", "That's it, then")]
+Something pale and wrong lunged out from behind that door. Far too many arms and legs. A crying child's face.
+
+I died. Last thing in my mind was Trudie's filthy grin. Then black.`,
+    tone: "death",
+    death: {
+      cause: "The thing in the basement.",
+      rule: "The basement is not on the schedule right now."
+    },
+    choices: []
   });
   add({
     id: "d9_away",
@@ -755,8 +760,15 @@ Something pale and wrong lunged out from behind that door. Far too many arms and
 
 The service stairs were still right there. Unlit. Eleven steps of ordinary darkness between me and the nice safe second floor. I put my hand on the rail.
 
-Somewhere above me, I heard a pen click.`,
-    choices: [go("d9_end_rule", "Ah. The stairs.")]
+Somewhere above me, I heard a pen click.
+
+The thing, this was the Rulekeeper, right, was on me between one blink and the next. Fine. Now I knew. This hotel had better have a bloody suggestion box.`,
+    tone: "death",
+    death: {
+      cause: "The stairs. In the dark.",
+      rule: "No stairs in the dark."
+    },
+    choices: []
   });
   add({
     id: "d9_up",
@@ -767,39 +779,12 @@ Somewhere above me, I heard a pen click.`,
 
 Somewhere above me, I heard a pen click.
 
-The dark unfolded down on top of me. A suggestion of a long coat, and a clipboard, and a face that was mostly the distilled disappointment from every school report I'd ever received. Then a pen ticking down a list toward a line that had my name on it.
+The dark unfolded down on top of me. A suggestion of a long coat, and a clipboard, and a face that was mostly the distilled disappointment from every school report I'd ever received.
 
-"Ah," I said. "The stairs. In the dark. That's going to turn out to be a big no-no rule, isn't it?"`,
-    choices: [go("d9_end_rule", "It was")]
-  });
-  add({
-    id: "d9_end_stay",
-    location: "Reset",
-    art: "/art/hotel.jpg",
-    speaker: "jack",
+"Ah," I said. "The stairs. In the dark."
+
+I died. Quicker than the last one. Fine.`,
     tone: "death",
-    text: `I died.
-
-Funnily enough, the last thing in my mind was Trudie's filthy grin. Then black.
-
-The work order will still be in my fist. There'll be a new line. I want you to read it this time.`,
-    death: {
-      cause: "The thing in the basement.",
-      rule: "The basement is not on the schedule right now."
-    },
-    choices: []
-  });
-  add({
-    id: "d9_end_rule",
-    location: "Reset",
-    art: "/art/hotel.jpg",
-    speaker: "jack",
-    tone: "death",
-    text: `The thing, this was the Rulekeeper, right, was on me between one blink and the next.
-
-To be fair, this one was much quicker than the last. The last thing through my head wasn't fear. It was, roughly: fine. Now I knew.
-
-This hotel had better have a bloody suggestion box.`,
     death: {
       cause: "The stairs. In the dark.",
       rule: "No stairs in the dark."

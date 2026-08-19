@@ -185,7 +185,7 @@
       </div>
     </div>
 
-    <script src="./game.js?v=spine1"></script>
+    <script src="./game.js?v=demo10"></script>
     <script>
       const ART = ".";
       const KEY = "sans-nuit-static-v4";
@@ -274,7 +274,7 @@
           for (const c of choices) {
             const b = document.createElement("button");
             b.className = "choice";
-            b.innerHTML = c.label + (c.hint ? '<span class="h">' + c.hint + "</span>" : "");
+            b.innerHTML = c.label;
             b.onclick = () => {
               stopSpeak();
               state = Hotel.applyChoice(state, c);
