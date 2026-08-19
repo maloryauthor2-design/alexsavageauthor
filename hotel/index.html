@@ -100,11 +100,10 @@
       <img class="bg" src="./art/hotel.jpg" alt="" />
       <div class="veil"></div>
       <div class="copy">
-        <p class="kicker">Hotel Sans Nuit</p>
+        <p class="kicker">The Brassbank · Hotel Sans Nuit</p>
         <h1>Save State<br />Innkeeper</h1>
         <p class="lede">
-          You wake in a bed that isn’t yours, with a work order in your fist. The staff know your
-          name. The carpet is boiling. Fix what breaks. Then do it all again.
+          You wake in a bed that isn’t yours, with a work order in your fist. Fix what breaks. Then do it all again.
         </p>
         <div class="stack">
           <button id="begin" class="btn btn-solid" type="button">Check in</button>
@@ -157,10 +156,10 @@
       </div>
     </div>
 
-    <script src="./game2.js?v=diamond"></script>
+    <script src="./game3.js?v=demo"></script>
     <script>
       const ART = ".";
-      const KEY = "sans-nuit-static-v1";
+      const KEY = "sans-nuit-static-v3";
       const NAMES = { jack: "Jack Causey", trudie: "Trudie Crisp", brig: "Brig", ione: "Ione", leland: "Leland Crum" };
       const $ = (id) => document.getElementById(id);
       const artUrl = (src) => {
@@ -207,7 +206,7 @@
       function renderTitle() {
         $("title").classList.remove("hidden");
         $("play").classList.add("hidden");
-        const has = state.deaths > 0 || state.loop > 1 || state.sceneId !== "wake";
+        const has = state.deaths > 0 || state.loop > 1 || state.sceneId !== "d1";
         $("begin").textContent = has ? "Continue this loop" : "Check in";
         $("fresh").classList.toggle("hidden", !has);
       }
