@@ -104,7 +104,7 @@ I reckon I could write a manual. I also reckon nobody else in this building can 
 
 There was damp bloom in the corner where the ceiling met the wall and it was running about a foot across. That hadn't been caused by a leak from above, I didn't think, because the stain had no run to it and no tail. It was rising, then. Something behind the plaster was being all patient about it. Someone needed to fix the source or they'd be painting over that shot every spring until they died.`,
     choices: [
-      go("d1", "The knocking hasn't stopped", { set: { lookedRoom: true }, journal: 1 })
+      go("d2", "On your feet", { set: { lookedRoom: true }, journal: 1 })
     ]
   });
   add({
@@ -122,7 +122,7 @@ ${s.workOrder.map((line, i) => `${i + 1}. ${line}`).join("\n")}
 
 I'd like, just once, a hint in advance of my horrible murder.`,
     choices: [
-      go("d1", "She's not going to knock forever", { set: { lookedOrder: true }, journal: 1 })
+      go("d2", "On your feet", { set: { lookedOrder: true }, journal: 1 })
     ]
   });
   add({
@@ -134,7 +134,7 @@ I'd like, just once, a hint in advance of my horrible murder.`,
 
 I looked beyond rough. The woman knocking didn't seem to be overly bothered about any of that, which was either kindness or she had bigger problems, and I could be wrong but I think this hotel does bigger problems as a house special.`,
     choices: [
-      go("d1", "Right. Door.", { set: { lookedSelf: true }, journal: 1 })
+      go("d2", "On your feet", { set: { lookedSelf: true }, journal: 1 })
     ]
   });
   add({
@@ -468,7 +468,7 @@ Under it, fainter: CAUSEY, JACK. And again. And again.
 
 That book is trying to check me in. It writes a name, it can't finish, so it drops the name and starts it over. I closed it before the page could add another one while I was watching.`,
     choices: [
-      go("d4", "Shut it", {
+      go("d4_exit", "The boards are going", {
         set: { lookedLedger: true },
         journal: 1,
         addRule: "The ledger already has your name. Repeatedly."
@@ -486,7 +486,7 @@ The word vacant had been polished more than the rest of the plate, as if a lot o
 
 I didn't sign. Not yet. A man who signs the inside of a thing is a man who expects other men to work on it later, and I have not decided I am that man in this building.`,
     choices: [
-      go("d4", "Leave the pen", {
+      go("d4_exit", "Leave the pen. The boards are going.", {
         set: { lookedPlate: true },
         journal: 1
       })
@@ -505,7 +505,7 @@ Trudie, from the floor, without looking up: "Don't do that twice. House rule."
 
 Noted. I can take an instruction when it's offered without a lecture.`,
     choices: [
-      go("d4", "Hands off the bell", {
+      go("d4_exit", "Hands off the bell. The boards are going.", {
         set: { lookedBell: true },
         journal: 1,
         addRule: "Don't ring the bell twice."
@@ -745,7 +745,7 @@ The dark unfolded down on top of me. A suggestion of a long coat, and a clipboar
   });
   add({
     id: "d9_end_stay",
-    location: "The Brassbank",
+    location: "Reset",
     art: "/art/hotel.jpg",
     speaker: "jack",
     tone: "death",
@@ -762,7 +762,7 @@ The work order will still be in my fist. There'll be a new line. I want you to r
   });
   add({
     id: "d9_end_rule",
-    location: "The Brassbank",
+    location: "Reset",
     art: "/art/hotel.jpg",
     speaker: "jack",
     tone: "death",
