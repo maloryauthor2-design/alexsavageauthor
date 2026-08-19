@@ -47,7 +47,7 @@ var Hotel = (() => {
   });
   add({
     id: "d1",
-    location: "Diamond 1 \u2014 The Waking",
+    location: "Room 204",
     art: "/art/room.jpg",
     speaker: "jack",
     time: "dawn",
@@ -62,9 +62,16 @@ Fuck knows what that meant. Last thing I had clear was Taverners, then the Bushm
 A rapid knocking rattled the door frame.`;
       }
       if (s.loop === 2) {
-        return `Same bed. Same knock. Same bloody stationery in my fist.
+        const extra = s.workOrder.length > 1 ? `
 
-I'd love to tell you I sat up and had a good long think about dying. But I didn't. You see, here's the thing about dying once before lunch. It's a wonderful teacher, and a shit one, because the lesson is just do it again and try not to be quite so stupid.
+There's a new line on the work order that absolutely was not there yesterday.
+
+${s.workOrder.slice(1).map((l) => l).join("\n")}
+
+Okay. Fine. So I'm leaving notes for myself following my brutal death now, am I?` : "";
+        return `Same bed. Same knock. Same bloody stationery in my fist. Head clear as a Sunday morning, which is the first thing that's gone right since Taverners.
+
+I'd love to tell you I sat up and had a good long think about dying. But I didn't. You see, here's the thing about dying before lunch. It's a wonderful teacher, and a shit one, because the lesson is just do it again and try not to be quite so stupid.${extra}
 
 She's going to say Jack. She's going to say late. She is not, as far as I can tell, going to remember a damn thing.`;
       }
@@ -84,13 +91,13 @@ I reckon I could write a manual. I also reckon nobody else in this building can 
       if (!s.flags.lookedSelf) {
         c.push(go("d1_self", "Check the state of yourself", { hint: "Look" }));
       }
-      c.push(go("d1_up", "Get up and deal with the door", { hint: "Advance" }));
+      c.push(go("d2", "Get up and deal with the door", { hint: "Advance" }));
       return c;
     }
   });
   add({
     id: "d1_room",
-    location: "Diamond 1 \u2014 The Waking",
+    location: "Room 204",
     art: "/art/room-stain.jpg",
     speaker: "jack",
     text: `Yeah, this definitely wasn't my crappy apartment's couch. Single window, netted. Wardrobe that smelled of someone else's cedar. No lock on the door, no chain, no courtesy latch, which is a thing I'd have words about if this were a job I was quoting.
@@ -102,7 +109,7 @@ There was damp bloom in the corner where the ceiling met the wall and it was run
   });
   add({
     id: "d1_order",
-    location: "Diamond 1 \u2014 The Waking",
+    location: "Room 204",
     art: "/art/room.jpg",
     speaker: "jack",
     text: (s) => s.workOrder.length === 1 ? `Three lines. Hotel stationery. Handwriting that looked suspiciously like mine, which is a sentence I do not enjoy thinking about before coffee.
@@ -120,7 +127,7 @@ I'd like, just once, a hint in advance of my horrible murder.`,
   });
   add({
     id: "d1_self",
-    location: "Diamond 1 \u2014 The Waking",
+    location: "Room 204",
     art: "/art/room.jpg",
     speaker: "jack",
     text: `I sat up, moaned, and rubbed my face. Jesus Frederico Christ. Dark hair sticking up in every possible direction and I seemed to have acquired a week's worth of stubble overnight. Eyes bloodshot enough to look like I hadn't slept in a month, and I didn't even want to consider what was spilt down the front of my favorite T-shirt.
@@ -131,18 +138,8 @@ I looked beyond rough. The woman knocking didn't seem to be overly bothered abou
     ]
   });
   add({
-    id: "d1_up",
-    location: "Diamond 1 \u2014 Outcome",
-    art: "/art/corridor.jpg",
-    speaker: "jack",
-    text: `I stood up. The anxious voice in my head that sounded remarkably like my mother started arguing with the disappointed career-counselor voice, and after a while both of them arrived at the conclusion that whatever this was, it was somehow my fault. That's their answer to everything, up to and including the weather, so I told the pair of them to fuck off.
-
-Boots if I could find them. Door if I couldn't. She already knew my name, which was a bit rich given I'd never heard hers.`,
-    choices: [go("d2", "The door", { time: "dawn" })]
-  });
-  add({
     id: "d2",
-    location: "Diamond 2 \u2014 The Door",
+    location: "Room 204",
     art: "/art/trudie-hall.jpg",
     speaker: "jack",
     text: (s) => s.loop >= 2 ? `"Jack! You're late again!"
@@ -166,7 +163,7 @@ The lobby's already trying to do what now?`,
   });
   add({
     id: "d2_open",
-    location: "Diamond 2 \u2014 Consequence",
+    location: "Corridor",
     art: "/art/trudie-hall.jpg",
     portrait: "/art/trudie.jpg",
     speaker: "trudie",
@@ -181,7 +178,7 @@ And hang on. Was there something wrong with the light in the corridor? Because i
   });
   add({
     id: "d2_listen",
-    location: "Diamond 2 \u2014 Consequence",
+    location: "Corridor",
     art: "/art/corridor.jpg",
     speaker: "jack",
     text: `I put my ear to the paint, because I am a grown man and this is a reasonable way to start a Tuesday.
@@ -201,7 +198,7 @@ The handle turned anyway. I'd shown her I hesitate. She'd shown me she doesn't, 
   });
   add({
     id: "d2_window",
-    location: "Diamond 2 \u2014 Consequence",
+    location: "Courtyard",
     art: "/art/courtyard.jpg",
     speaker: "jack",
     text: `The sash stuck, then gave, the way a sash does when the housing's swollen on the face and nobody's planed three millimeters off the bottom in about forty years. I dropped into a courtyard that smelled of wet stone and something sweeter, like fruit left too long.
@@ -218,7 +215,7 @@ So now I was going to have to walk in the front door like a guest. Wet. For the 
   });
   add({
     id: "d2_out",
-    location: "Diamond 2 \u2014 Outcome",
+    location: "Lobby",
     art: "/art/lobby.jpg",
     speaker: "jack",
     text: (s) => s.flags.arrivedWet ? `The lobby took me in through the front like a bad decision. Pastel walls. Dirty brass, the sort that's been handled by a hundred years of people and gone soft and gold at all the places where hands actually land. A smell of lemon soap and something under it that was not lemon.
@@ -226,11 +223,116 @@ So now I was going to have to walk in the front door like a guest. Wet. For the 
 Trudie was already on her knees in the middle of the floor. The carpet was fizzing.` : `Then we turned a corner and the lobby of the hotel proper opened up. More of those pastel walls, more of that dirty brass, and pride of place a totally Instagram-ready reception desk with a big leather-bound register sitting open on it. I'd love to tell you I stopped and had a good long think about that. But I didn't. There was rather a lot going on.
 
 Everything looked pretty impressive, actually, except for the carpet near the far wall which was\u2026 bubbling. Like, properly fizzing with small dark patches spreading outwards like mold in fast-forward. It was utterly bizarre.`,
-    choices: [go("d3", "The spill", { time: "morning" })]
+    choices: [go("d_brig", "The kitchen door slams open", { time: "morning" })]
+  });
+  add({
+    id: "d_brig",
+    location: "Kitchen",
+    art: "/art/brig-kitchen.jpg",
+    portrait: "/art/brig.jpg",
+    speaker: "brig",
+    time: "morning",
+    text: (s) => s.loop >= 2 ? `The kitchen door slammed open on schedule. Ears. Teeth. Wooden spoon, jabbed my way in a pretty unfriendly manner.
+
+"You. Late again! What's your excuse this time, handyman?"
+
+I could tell her about the stove before I'd looked at it. I could play dumb. I could stand here like a lemon and wait for her to throw vegetables at me.` : `"Trudie! If that waste-of-skin handyman is late again I'm going to spank his ass myself!"
+
+Then the kitchen door slammed open and out came the second woman this morning who made my brain go out to lunch. Pointed furry ears. Impossibly sharp teeth. A white chef's jacket straining against a body that looked like it could bench a truck and then eat it. And a long furry tail that lashed about behind her.
+
+"You," she growled, jabbing a wooden spoon my way. "Late again! What's your excuse this time, Causey?"
+
+What the actual fucking fuckery fuck? Was I still asleep?`,
+    choices: [
+      go("d_brig_stove", "The stove. That's a job I understand.", { hint: "Fix" }),
+      go("d_brig_chop", "Take the cutting board. Try not to die.", { hint: "Help" }),
+      go("d_brig_stare", "Just\u2026 stand there. Process the ears.", { hint: "Freeze" })
+    ]
+  });
+  add({
+    id: "d_brig_stove",
+    location: "Kitchen",
+    art: "/art/brig-kitchen.jpg",
+    portrait: "/art/brig.jpg",
+    speaker: "brig",
+    text: (s) => s.loop >= 2 ? `"There's something wrong with your big stove, isn't there?" I said. "I could be wrong, but I think the wards are running hot and the flame's going all greeny-black under the orange. Pressure feed on the left side, third fitting down, weeping into the line. I can have that sorted in a jiffy."
+
+The kitchen went quiet. Brig's ears went flat, and not in the angry way. The careful way.
+
+"But you've not even looked at it, Causey. How can you possibly know that?"
+
+"Just a lucky guess." The toolkit popped into my hand. I saw it arrive this time.
+
+"Stop poncing about and fix it."` : `Trudie plucked the knife away before I could disgrace a carrot. "What Brig really needs you for is the big stove. Flames going weird colors. Wards getting far too hot. You know how it gets when it's in one of its moods."
+
+"The oven gets moods?" I said.
+
+"Bit like Brig, really. Loud, hot, and sulks if you ignore it."
+
+"Say that again, Trudie, and you're going in the stew as thickener."
+
+Ancient cast iron. Dials older than God. Flames flickering between normal orange and something sicky greeny-black. The air smelled like burning herbs and rot. My hands went to work on the fittings without asking me, which was either competence or the hotel wearing me like a glove.`,
+    choices: [
+      go("d_brig_out", "Fix it. Get out of her kitchen.", {
+        journal: 1,
+        addRule: "The stove weeps at the third fitting. Wards run hot."
+      })
+    ]
+  });
+  add({
+    id: "d_brig_chop",
+    location: "Kitchen",
+    art: "/art/brig-kitchen.jpg",
+    portrait: "/art/brig.jpg",
+    speaker: "brig",
+    text: `She shoved a cutting board and vegetables at me. "Chop chop. Uniformly. If I see one uneven dice I'm using your fingers for stock. You see if I don't."
+
+I took the knife on autopilot. I fix pipes. Wiring. Drywall. I do not, as a matter of course, dice onions for a woman who looks like she's stepped out of the world's most well-resourced furry convention.
+
+Trudie took pity and plucked the knife away with a wink. "Let me. What she actually wants is the stove."
+
+Brig's tail lashed. "Him on the oven. Last handyman who messed with my kitchen without permission ended up as seasoning."`,
+    choices: [go("d_brig_out", "Right. Stove. Then out.")]
+  });
+  add({
+    id: "d_brig_stare",
+    location: "Kitchen",
+    art: "/art/brig-kitchen.jpg",
+    portrait: "/art/brig.jpg",
+    speaker: "brig",
+    text: `"I\u2026 just woke up?" My voice came out far smaller than I'd meant it to. "In fact, I'm not actually sure that I have\u2026"
+
+Her ears flattened. "Woken up. Right. Because that's just perfect, isn't it."
+
+Trudie giggled from the doorway. "It's so excellent to see you're in a better mood today, Brig!"
+
+A cutting board hit my chest. Then Trudie stole the knife off me, and I was pointed at the stove like a dog being shown the newspaper.
+
+Those ears. That tail. The teeth. The flames around her flared higher than physics allowed. This wasn't a costume.`,
+    choices: [go("d_brig_out", "Do the stove. Don't argue.")]
+  });
+  add({
+    id: "d_brig_out",
+    location: "Kitchen",
+    art: "/art/brig-kitchen.jpg",
+    portrait: "/art/brig.jpg",
+    speaker: "brig",
+    text: `The flames settled back to orange. She grunted what might have been approval and shoved a bowl at me. Warm, rich, a spice kick that almost cleared the hangover. The one without the chip in it.
+
+"She saved you the good bowl," Trudie stage-whispered.
+
+"It was just the nearest bowl."
+
+"It's the bowl you\u2026"
+
+"It was the nearest bowl!"
+
+"Good enough. Now get out of my kitchen and go earn your fucking salary."`,
+    choices: [go("d3", "Back to the lobby")]
   });
   add({
     id: "d3",
-    location: "Diamond 3 \u2014 The Lobby Spill",
+    location: "Lobby",
     art: "/art/trudie-mop.jpg",
     portrait: "/art/trudie.jpg",
     speaker: "trudie",
@@ -264,7 +366,7 @@ A rag hit my chest. Tacky fingers. A grin that would get a man in trouble in a q
   });
   add({
     id: "d3_mop",
-    location: "Diamond 3 \u2014 Consequence",
+    location: "Lobby",
     art: "/art/trudie-mop.jpg",
     portrait: "/art/trudie.jpg",
     speaker: "trudie",
@@ -285,7 +387,7 @@ And yes, I still preened a bit at it, because apparently a man can be utterly ba
   });
   add({
     id: "d3_watch",
-    location: "Diamond 3 \u2014 Consequence",
+    location: "Lobby",
     art: "/art/lobby.jpg",
     portrait: "/art/trudie.jpg",
     speaker: "trudie",
@@ -298,7 +400,7 @@ The seal went down. The fizz sulked. She sat back on her heels and blew a strand
   });
   add({
     id: "d3_chaos",
-    location: "Diamond 3 \u2014 Consequence",
+    location: "Lobby",
     art: "/art/corridor.jpg",
     portrait: "/art/trudie.jpg",
     speaker: "trudie",
@@ -320,7 +422,7 @@ I could be wrong, but I think I just made a schedule problem.`,
   });
   add({
     id: "d3_out",
-    location: "Diamond 3 \u2014 Outcome",
+    location: "Front desk",
     art: "/art/desk.jpg",
     speaker: "jack",
     text: `The lobby had decided what kind of morning it was going to be. The desk was waiting.
@@ -330,7 +432,7 @@ Someone had to stand behind it. The brass plate said the post was vacant, and I 
   });
   add({
     id: "d4",
-    location: "Diamond 4 \u2014 The Front Desk",
+    location: "Front desk",
     art: "/art/desk.jpg",
     speaker: "jack",
     text: (s) => {
@@ -357,7 +459,7 @@ Someone had to stand behind it. The brass plate said the post was vacant, and I 
   });
   add({
     id: "d4_ledger",
-    location: "Diamond 4 \u2014 The Front Desk",
+    location: "Front desk",
     art: "/art/desk.jpg",
     speaker: "jack",
     text: `Yesterday's arrivals were written in a hand that kept changing its mind. CAUSEY, JACK. Room 204. Checked in at a time that was not a time.
@@ -375,7 +477,7 @@ That book is trying to check me in. It writes a name, it can't finish, so it dro
   });
   add({
     id: "d4_plate",
-    location: "Diamond 4 \u2014 The Front Desk",
+    location: "Front desk",
     art: "/art/desk.jpg",
     speaker: "jack",
     text: `INNKEEPER. Vacant.
@@ -392,7 +494,7 @@ I didn't sign. Not yet. A man who signs the inside of a thing is a man who expec
   });
   add({
     id: "d4_bell",
-    location: "Diamond 4 \u2014 The Front Desk",
+    location: "Front desk",
     art: "/art/desk.jpg",
     speaker: "jack",
     text: `One tap.
@@ -412,7 +514,7 @@ Noted. I can take an instruction when it's offered without a lecture.`,
   });
   add({
     id: "d4_exit",
-    location: "Diamond 4 \u2014 Outcome",
+    location: "East boards",
     art: "/art/boards.jpg",
     speaker: "jack",
     text: `Ten o'clock has a smell. Wet wood. Sweet rot. The east boards were done pretending, and I didn't need a moisture meter to tell me that.
@@ -430,13 +532,13 @@ Whatever I did next, the floor was going to have a say.`,
   });
   add({
     id: "d10b",
-    location: "Diamond 10B \u2014 Leland at the Desk",
+    location: "Front desk",
     art: "/art/leland.jpg",
     portrait: "/art/leland.jpg",
     speaker: "leland",
-    text: (s) => s.flags.lelandMet ? `"You're late," Leland Crum said, which is rich from a man who arrives when the building tells him to. "Don't look at me like that. I remember. That's the whole problem."` : `A man in a postman's coat was standing where I'd been standing. Satchel. Rain that wasn't falling on him. Eyes like he'd been delivering to the same wrong address for a long time.
+    text: (s) => s.flags.lelandMet ? `"You're upright," Leland said. Satchel. Feathers for sideburns, if you looked at him properly. "Don't waste it asking if you're mad. You're not. The hotel is."` : `A man in a postman's coat was standing where I'd been standing. Satchel. Rain that wasn't falling on him. Eyes like a bird's, and not in a poetic way.
 
-"Causey." Not a question. "You blinked. Don't waste the second morning asking if you're mad. You're not. The hotel is."`,
+"Causey." Not a question. "I'm not your address. I'm the four-thirty, and I'm early, which means something's already gone wrong with the round. Don't ask me if you're mad. You're not. The hotel is."`,
     choices: [
       go("d10b_truth", "Tell him you remember dying", { hint: "Truth" }),
       go("d10b_joke", "Play it light. Ask if he's the manager.", { hint: "Dodge" }),
@@ -445,7 +547,7 @@ Whatever I did next, the floor was going to have a say.`,
   });
   add({
     id: "d10b_truth",
-    location: "Diamond 10B \u2014 Consequence",
+    location: "Front desk",
     art: "/art/leland.jpg",
     portrait: "/art/leland.jpg",
     speaker: "leland",
@@ -465,22 +567,22 @@ I stood there a second not liking it much. Then I nodded, because he was right, 
   });
   add({
     id: "d10b_joke",
-    location: "Diamond 10B \u2014 Consequence",
+    location: "Front desk",
     art: "/art/leland.jpg",
     portrait: "/art/leland.jpg",
     speaker: "leland",
-    text: `"Manager." He tasted the word and put it back. "If there was one, you wouldn't be holding that paper.
+    text: `"Manager." He tasted the word and put it back. "If there was one, you wouldn't be holding that paper. Never been an advert out for a handyman either. Not one, in the whole time it's been on the round."
 
-I'm Leland Crum. I bring what gets through. I do not explain the house to men who think they're funny at eight in the morning."
+He dealt an envelope into a pigeonhole that went out like a match.
 
-Fair. I still preened a bit, because apparently I can be told off by a postman and still enjoy having been recognized.`,
+"I'm Leland. I bring what gets through. I do not explain the house to men who think they're funny before four-thirty."`,
     choices: [
       go("d10b_out", "Fair", { set: { lelandMet: true } })
     ]
   });
   add({
     id: "d10b_ask",
-    location: "Diamond 10B \u2014 Consequence",
+    location: "Front desk",
     art: "/art/leland.jpg",
     portrait: "/art/leland.jpg",
     speaker: "leland",
@@ -499,7 +601,7 @@ The satchel creaked.
   });
   add({
     id: "d10b_out",
-    location: "Diamond 10B \u2014 Outcome",
+    location: "East boards",
     art: "/art/boards.jpg",
     speaker: "jack",
     text: `He was already going. The satchel hit his hip. The boards under the east seam chose that moment to give up the pretence of being wood, which I thought was a bit on the nose, even for this place.`,
@@ -507,7 +609,7 @@ The satchel creaked.
   });
   add({
     id: "d5",
-    location: "Diamond 5 \u2014 The Rotting Boards",
+    location: "East boards",
     art: "/art/boards.jpg",
     speaker: "jack",
     time: "morning",
@@ -531,7 +633,7 @@ Trudie, from the far side of the desk, very brightly: "Don't go down. That's not
   });
   add({
     id: "d5_patch",
-    location: "Diamond 5 \u2014 Consequence",
+    location: "East boards",
     art: "/art/boards.jpg",
     speaker: "jack",
     text: `Offcut from behind the desk. Two nails that were waiting like they'd been set out for me. It is a truth universally acknowledged that a man who fixes a thing that he thinks other men will have to work on later will sign the inside of it, and my hands did the rest without asking me.
@@ -548,7 +650,7 @@ Trudie whooped like I'd done a trick. Maybe I had.`,
   });
   add({
     id: "d5_look",
-    location: "Diamond 5 \u2014 Consequence",
+    location: "East boards",
     art: "/art/basement.jpg",
     speaker: "jack",
     text: `Like the colossal fucking idiot everyone always said I was, I got down on my elbows and looked.
@@ -567,7 +669,7 @@ I got back before the fourth.`,
   });
   add({
     id: "d5_leave",
-    location: "Diamond 5 \u2014 Consequence",
+    location: "East boards",
     art: "/art/lobby.jpg",
     portrait: "/art/trudie.jpg",
     speaker: "trudie",
@@ -578,106 +680,100 @@ The hole stayed. The cold stayed. I had chosen not to be useful, and I sat and l
   });
   add({
     id: "d5_out",
-    location: "Diamond 5 \u2014 Outcome",
-    art: "/art/brig-kitchen.jpg",
+    location: "Lobby",
+    art: "/art/corridor.jpg",
     speaker: "jack",
-    text: (s) => s.loop === 1 ? `The rest of the day happened to other people. Pans. Needles. A noon that wanted me outdoors and didn't get me, because there was always something else in that hotel about to kill me and, you know, a man has to prioritize.
+    text: (s) => s.loop === 1 ? `The rest of the morning happened to other people. A leaky pipe. A flickering fixture on the second floor. Tasks my hands knew and my head had never seen.
 
-I blinked and the brass had gone honey. I blinked and the lamps were lit. It's fair to say I'd had a bit of a morning.` : `I know this skip now. I did the checks, because apparently that's who I am now, and the hotel compressed the hours I hadn't earned.
-
-Midnight is the thing that wants me. I really wasn't enjoying this fieldtrip overmuch.`,
-    choices: [go("d9", "Stay up for the bell", { time: "night" })]
+Then the clock struck three and the temperature dropped like someone had kicked my ass into the deep freeze.` : `I know this skip now. I did the checks, because apparently that's who I am now. Lived through the easy hours. Three o'clock is the one that wants me.`,
+    choices: [go("d9", "Three o'clock", { time: "three" })]
   });
   add({
     id: "d9",
-    location: "Diamond 9 \u2014 Midnight",
+    location: "Service stairs",
     art: "/art/corridor.jpg",
     speaker: "jack",
-    time: "night",
-    text: `Eleven-thirty. The hotel had gone thin. Every ticking thing in the walls had agreed on a tempo, which is never what you want from a building.
+    time: "three",
+    text: `The lights flickered. From somewhere below, a dragging sound. Black mold on the walls near the service stairwell in patterns that almost looked like\u2026 yeah, they looked like handprints, didn't they?
 
-I could go down to the lobby and meet whatever rang. I could stay in 204 and let it come upstairs. I could look first, like a man who still thinks looking helps.`,
-    choices: (s) => {
-      const c = [];
-      if (!s.flags.lookedNightWindow) {
-        c.push(go("d9_window", "Look out at the courtyard", { hint: "Look" }));
-      }
-      if (!s.flags.lookedNightOrder) {
-        c.push(go("d9_order", "Read the work order one more time", { hint: "Look" }));
-      }
-      c.push(go("d9_lobby", "Go down to the lobby", { hint: "Advance" }));
-      c.push(go("d9_stay", "Bolt 204 and wait", { hint: "Advance" }));
-      return c;
-    }
-  });
-  add({
-    id: "d9_window",
-    location: "Diamond 9 \u2014 Midnight",
-    art: "/art/courtyard.jpg",
-    speaker: "jack",
-    text: `The fountain was still dry. The courtyard was full of a dark that had thickness.
+The basement door at the bottom was cracked open a touch. I thought I could hear a child's voice.
 
-For a second there was a boy in it. Then there wasn't. I stood there a second not liking it much.`,
+I could follow it, like the colossal fucking idiot everyone always said I was. I could walk the other way. I could take the unlit stairs up, on account of the bulb I hadn't got around to fixing.`,
     choices: [
-      go("d9", "Shut the sash", { set: { lookedNightWindow: true }, journal: 1 })
+      go("d9_down", "Follow the sound down", { hint: "The basement" }),
+      go("d9_away", "Turn around. Walk the other way.", { hint: "Don't" }),
+      go("d9_up", "Take the service stairs up. In the dark.", { hint: "Shortcut" })
     ]
   });
   add({
-    id: "d9_order",
-    location: "Diamond 9 \u2014 Midnight",
-    art: "/art/room.jpg",
+    id: "d9_down",
+    location: "Basement door",
+    art: "/art/basement.jpg",
     speaker: "jack",
-    text: (s) => `The paper was warm.
+    text: `Like the colossal fucking idiot everyone always said I was, I followed the sound down toward one of the service stairwells.
 
-${s.workOrder.map((line, i) => `${i + 1}. ${line}`).join("\n")}
+"Stay\u2026 with us\u2026"
 
-A new line was waiting underneath, in a gap. It would fill itself in when I earned it. Don't ask questions. Then do it all again. Yeah. That sounded like about the perfect description of my increasingly shitty life.`,
-    choices: [
-      go("d9", "Pocket it", { set: { lookedNightOrder: true } })
-    ]
+Something pale and wrong lunged out from behind that door. Far too many arms and legs. A crying child's face. I didn't even have time to scream.`,
+    choices: [go("d9_end_stay", "That's it, then")]
   });
   add({
-    id: "d9_lobby",
-    location: "Diamond 9 \u2014 Consequence",
-    art: "/art/night-lobby.jpg",
+    id: "d9_away",
+    location: "Second floor",
+    art: "/art/corridor.jpg",
     speaker: "jack",
-    text: `The desk was empty. The bell was sweating.
+    text: `I turned on my heel and walked the other way, because I can take an instruction off my own handwriting when it's offered.
 
-It rang once. Then it rang a second time.
+The service stairs were still right there. Unlit. Eleven steps of ordinary darkness between me and the nice safe second floor. I put my hand on the rail.
 
-The lights went.
-
-Something with too many hours in it came up through the east boards as if the patch I'd put there was a courtesy.`,
-    choices: [go("d9_end", "There is no third ring")]
+Somewhere above me, I heard a pen click.`,
+    choices: [go("d9_end_rule", "Ah. The stairs.")]
   });
   add({
-    id: "d9_stay",
-    location: "Diamond 9 \u2014 Consequence",
-    art: "/art/room-stain.jpg",
+    id: "d9_up",
+    location: "Service stairs",
+    art: "/art/corridor.jpg",
     speaker: "jack",
-    text: `I put my back to the door.
+    text: `I put my hand on the rail and my foot on the first step.
 
-The stain in the corner opened. The damp had been patient all day.
+Somewhere above me, I heard a pen click.
 
-The bell found me through the floor. Once. Twice.`,
-    choices: [go("d9_end", "That's it then")]
+The dark unfolded down on top of me. A suggestion of a long coat, and a clipboard, and a face that was mostly the distilled disappointment from every school report I'd ever received. Then a pen ticking down a list toward a line that had my name on it.
+
+"Ah," I said. "The stairs. In the dark. That's going to turn out to be a big no-no rule, isn't it?"`,
+    choices: [go("d9_end_rule", "It was")]
   });
   add({
-    id: "d9_end",
-    location: "Diamond 9 \u2014 Outcome",
+    id: "d9_end_stay",
+    location: "The Brassbank",
     art: "/art/hotel.jpg",
     speaker: "jack",
     tone: "death",
-    text: (s) => s.loop === 1 ? `I died.
+    text: `I died.
 
-The work order will still be in my fist. Trudie will not remember my name in her mouth. Leland might.
+Funnily enough, the last thing in my mind was Trudie's filthy grin. Then black.
 
-Wake up. Read the new line.` : `I died. Again.
-
-I did the checks, because apparently that's who I am now. Then do it all again.`,
+The work order will still be in my fist. There'll be a new line. I want you to read it this time.`,
     death: {
-      cause: "Midnight took the hotel back.",
-      rule: "Be in a bed that belongs to you before the second bell."
+      cause: "The thing in the basement.",
+      rule: "The basement is not on the schedule right now."
+    },
+    choices: []
+  });
+  add({
+    id: "d9_end_rule",
+    location: "The Brassbank",
+    art: "/art/hotel.jpg",
+    speaker: "jack",
+    tone: "death",
+    text: `The thing, this was the Rulekeeper, right, was on me between one blink and the next.
+
+To be fair, this one was much quicker than the last. The last thing through my head wasn't fear. It was, roughly: fine. Now I knew.
+
+This hotel had better have a bloody suggestion box.`,
+    death: {
+      cause: "The stairs. In the dark.",
+      rule: "No stairs in the dark."
     },
     choices: []
   });
